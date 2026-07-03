@@ -10,6 +10,7 @@
     "type-check": "tsc --noEmit",
     "verify:verses": "node scripts/verify-verses-integrity.mjs",
     "collect:sources": "node scripts/collect-source-links.mjs",
+    "review:docs": "python scripts/review-docs.py",
     "scrape:dry-run": "node scripts/scrape-daesoon.mjs --dry-run",
     "scrape": "node scripts/scrape-daesoon.mjs --confirm"
   },

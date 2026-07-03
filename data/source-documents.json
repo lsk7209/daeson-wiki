@@ -1,5 +1,511 @@
 [
   {
+    "id": "dict-dirc-daesoon-guidelines-group-9",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순지침",
+    "title": "대순지침 - 제 1장. 대순진리회의 바른이해",
+    "url": "http://dict.dirc.kr/app/k/2/page#group-9",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-guidelines-group-13",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순지침",
+    "title": "대순지침 - 제 1장. 바른 수도생활",
+    "url": "http://dict.dirc.kr/app/k/2/page#group-13",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-guidelines-group-18",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순지침",
+    "title": "대순지침 - 제 1장. 신앙 생활에서의 모본",
+    "url": "http://dict.dirc.kr/app/k/2/page#group-18",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-guidelines-group-15",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순지침",
+    "title": "대순지침 - 제 1장. 종단 기구의 책무",
+    "url": "http://dict.dirc.kr/app/k/2/page#group-15",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-guidelines-group-22",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순지침",
+    "title": "대순지침 - 제 1장. 종단 사업의 바른인식",
+    "url": "http://dict.dirc.kr/app/k/2/page#group-22",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-guidelines-group-23",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순지침",
+    "title": "대순지침 - 제 2장. 3대 중요사업의 알찬 추진",
+    "url": "http://dict.dirc.kr/app/k/2/page#group-23",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-guidelines-group-14",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순지침",
+    "title": "대순지침 - 제 2장. 신조에 의한 수도생활",
+    "url": "http://dict.dirc.kr/app/k/2/page#group-14",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-guidelines-group-19",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순지침",
+    "title": "대순지침 - 제 2장. 임원과 도인의 관계",
+    "url": "http://dict.dirc.kr/app/k/2/page#group-19",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-guidelines-group-16",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순지침",
+    "title": "대순지침 - 제 2장. 종단 체계의 확립",
+    "url": "http://dict.dirc.kr/app/k/2/page#group-16",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-guidelines-group-10",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순지침",
+    "title": "대순지침 - 제 2장. 진리에 의한 포덕ㆍ교화를 강화",
+    "url": "http://dict.dirc.kr/app/k/2/page#group-10",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-guidelines-group-20",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순지침",
+    "title": "대순지침 - 제 3장. 조직체계의 관리",
+    "url": "http://dict.dirc.kr/app/k/2/page#group-20",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-guidelines-group-17",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순지침",
+    "title": "대순지침 - 제 3장. 체계의 질서 확보",
+    "url": "http://dict.dirc.kr/app/k/2/page#group-17",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-guidelines-group-11",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순지침",
+    "title": "대순지침 - 제 3장. 해원상생과 보은상생의 윤리실천",
+    "url": "http://dict.dirc.kr/app/k/2/page#group-11",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-guidelines-group-21",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순지침",
+    "title": "대순지침 - 제 4장. 개전의 수도 생활",
+    "url": "http://dict.dirc.kr/app/k/2/page#group-21",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-guidelines-group-12",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순지침",
+    "title": "대순지침 - 제 4장. 상생 윤리의 생활화로 보국 안민 성취",
+    "url": "http://dict.dirc.kr/app/k/2/page#group-12",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-guidelines-group-3",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순지침",
+    "title": "대순지침 - 지 침",
+    "url": "http://dict.dirc.kr/app/k/2/page#group-3",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-guidelines-group-2",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순지침",
+    "title": "대순지침 - 훈시의 대지(大志)",
+    "url": "http://dict.dirc.kr/app/k/2/page#group-2",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-guidelines-group-4",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순지침",
+    "title": "대순지침 - Ⅰ. 신앙 체계의 정립",
+    "url": "http://dict.dirc.kr/app/k/2/page#group-4",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-guidelines-group-5",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순지침",
+    "title": "대순지침 - Ⅱ. 수도ㆍ공부",
+    "url": "http://dict.dirc.kr/app/k/2/page#group-5",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-guidelines-group-6",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순지침",
+    "title": "대순지침 - Ⅲ. 조직기구",
+    "url": "http://dict.dirc.kr/app/k/2/page#group-6",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-guidelines-group-7",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순지침",
+    "title": "대순지침 - Ⅳ. 처사의 모본",
+    "url": "http://dict.dirc.kr/app/k/2/page#group-7",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-guidelines-group-8",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순지침",
+    "title": "대순지침 - Ⅴ. 종단의 사업",
+    "url": "http://dict.dirc.kr/app/k/2/page#group-8",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-handbook-group-2",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순진리회요람",
+    "title": "대순진리회요람 - 1. 대순진리회(大巡眞理會)",
+    "url": "http://dict.dirc.kr/app/k/3/page#group-2",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-handbook-group-11",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순진리회요람",
+    "title": "대순진리회요람 - 10. 훈회(訓誨)",
+    "url": "http://dict.dirc.kr/app/k/3/page#group-11",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-handbook-group-12",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순진리회요람",
+    "title": "대순진리회요람 - 11. 수칙(守則)",
+    "url": "http://dict.dirc.kr/app/k/3/page#group-12",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-handbook-group-13",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순진리회요람",
+    "title": "대순진리회요람 - 12. 연중중요행사일(年中重要行事日)",
+    "url": "http://dict.dirc.kr/app/k/3/page#group-13",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-handbook-group-14",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순진리회요람",
+    "title": "대순진리회요람 - 13. 사업(事業)",
+    "url": "http://dict.dirc.kr/app/k/3/page#group-14",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-handbook-group-15",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순진리회요람",
+    "title": "대순진리회요람 - 14. 조직기구(組織機構)",
+    "url": "http://dict.dirc.kr/app/k/3/page#group-15",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-handbook-group-16",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순진리회요람",
+    "title": "대순진리회요람 - 15. 여주본부도장 전경",
+    "url": "http://dict.dirc.kr/app/k/3/page#group-16",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-handbook-group-17",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순진리회요람",
+    "title": "대순진리회요람 - 16. 중곡도장 전경",
+    "url": "http://dict.dirc.kr/app/k/3/page#group-17",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-handbook-group-18",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순진리회요람",
+    "title": "대순진리회요람 - 17. 포천수도장 전경",
+    "url": "http://dict.dirc.kr/app/k/3/page#group-18",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-handbook-group-19",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순진리회요람",
+    "title": "대순진리회요람 - 18. 금강산토성수련도장 전경",
+    "url": "http://dict.dirc.kr/app/k/3/page#group-19",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-handbook-group-20",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순진리회요람",
+    "title": "대순진리회요람 - 19. 제주수련도장",
+    "url": "http://dict.dirc.kr/app/k/3/page#group-20",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-handbook-group-3",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순진리회요람",
+    "title": "대순진리회요람 - 2. 신앙의 대상(信仰의 對象)",
+    "url": "http://dict.dirc.kr/app/k/3/page#group-3",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-handbook-group-21",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순진리회요람",
+    "title": "대순진리회요람 - 20. 대진대학교 전경",
+    "url": "http://dict.dirc.kr/app/k/3/page#group-21",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-handbook-group-22",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순진리회요람",
+    "title": "대순진리회요람 - 21. 분당제생병원",
+    "url": "http://dict.dirc.kr/app/k/3/page#group-22",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-handbook-group-23",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순진리회요람",
+    "title": "대순진리회요람 - 22. 대순진리회복지재단 전경",
+    "url": "http://dict.dirc.kr/app/k/3/page#group-23",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-handbook-group-4",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순진리회요람",
+    "title": "대순진리회요람 - 3. 취지(趣旨)",
+    "url": "http://dict.dirc.kr/app/k/3/page#group-4",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-handbook-group-5",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순진리회요람",
+    "title": "대순진리회요람 - 4. 연혁(沿革)",
+    "url": "http://dict.dirc.kr/app/k/3/page#group-5",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-handbook-group-6",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순진리회요람",
+    "title": "대순진리회요람 - 5. 교리개요(敎理槪要)",
+    "url": "http://dict.dirc.kr/app/k/3/page#group-6",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-handbook-group-7",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순진리회요람",
+    "title": "대순진리회요람 - 6. 종지(宗旨)",
+    "url": "http://dict.dirc.kr/app/k/3/page#group-7",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-handbook-group-8",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순진리회요람",
+    "title": "대순진리회요람 - 7. 신조(信條)",
+    "url": "http://dict.dirc.kr/app/k/3/page#group-8",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-handbook-group-9",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순진리회요람",
+    "title": "대순진리회요람 - 8. 목적(目的)",
+    "url": "http://dict.dirc.kr/app/k/3/page#group-9",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "dict-dirc-daesoon-handbook-group-10",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순진리회요람",
+    "title": "대순진리회요람 - 9. 수도(修道)",
+    "url": "http://dict.dirc.kr/app/k/3/page#group-10",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "gyomubu-content-002-301060",
+    "sourceName": "교화연구",
+    "sourceSite": "gyomubu.or.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순성적도해요람",
+    "title": "대순성적도해요람",
+    "url": "http://gyomubu.or.kr/bbs/content.php?co_id=002_301060",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "gyomubu-content-002-301070",
+    "sourceName": "교화연구",
+    "sourceSite": "gyomubu.or.kr",
+    "sourceType": "canonical_guidance",
+    "category": "도헌",
+    "title": "도헌",
+    "url": "http://gyomubu.or.kr/bbs/content.php?co_id=002_301070",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
     "id": "gyomubu-002-501020-100",
     "sourceName": "교화연구",
     "sourceSite": "gyomubu.or.kr",
@@ -7,7 +513,7 @@
     "category": "전경 속 이야기",
     "title": "선자사지(善者師之) 악자개지(惡者改之) > 청계탑",
     "url": "http://gyomubu.or.kr/bbs/board.php?bo_table=002_501020&wr_id=100",
-    "fetchedAt": "2026-07-03T07:03:48.790Z",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
     "copyrightNote": "metadata_snippet_only"
   },
   {
@@ -18,7 +524,29 @@
     "category": "전경 용어/해설",
     "title": "전경의 구성과 내용을 설명해 주세요. > Q&A",
     "url": "http://gyomubu.or.kr/bbs/board.php?bo_table=002_501070&wr_id=27",
-    "fetchedAt": "2026-07-03T07:03:48.790Z",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "gyomubu-content-002-301040",
+    "sourceName": "교화연구",
+    "sourceSite": "gyomubu.or.kr",
+    "sourceType": "canonical_guidance",
+    "category": "포덕교화기본원리",
+    "title": "포덕교화기본원리1",
+    "url": "http://gyomubu.or.kr/bbs/content.php?co_id=002_301040",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "gyomubu-content-002-301050",
+    "sourceName": "교화연구",
+    "sourceSite": "gyomubu.or.kr",
+    "sourceType": "canonical_guidance",
+    "category": "포덕교화기본원리",
+    "title": "포덕교화기본원리2",
+    "url": "http://gyomubu.or.kr/bbs/content.php?co_id=002_301050",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
     "copyrightNote": "metadata_snippet_only"
   },
   {
@@ -29,7 +557,7 @@
     "category": "전경성구",
     "title": "행록 3장 19절의 교훈",
     "url": "https://webzine.daesoon.org/board/readcnt.asp?webzine=305&menu_no=5137&bno=9497&page=1",
-    "fetchedAt": "2026-07-03T07:03:48.790Z",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
     "copyrightNote": "metadata_snippet_only"
   },
   {
@@ -40,7 +568,7 @@
     "category": "article",
     "title": "전경 교운 1장 9절 속 지하의 의미",
     "url": "https://webzine.dirc.kr/article/160",
-    "fetchedAt": "2026-07-03T07:03:48.790Z",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
     "copyrightNote": "metadata_snippet_only"
   },
   {
@@ -51,7 +579,7 @@
     "category": "article",
     "title": "증산의 언설로 보는 가짜뉴스",
     "url": "https://webzine.dirc.kr/article/177",
-    "fetchedAt": "2026-07-03T07:03:48.790Z",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
     "copyrightNote": "metadata_snippet_only"
   },
   {
@@ -62,7 +590,7 @@
     "category": "article",
     "title": "척신과 마(魔)가 풀리는 원리",
     "url": "https://webzine.dirc.kr/article/115",
-    "fetchedAt": "2026-07-03T07:03:48.790Z",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
     "copyrightNote": "metadata_snippet_only"
   },
   {
@@ -73,7 +601,7 @@
     "category": "article",
     "title": "초록눈의 괴물 - '질투'의 심리학적 분석",
     "url": "https://webzine.dirc.kr/article/145",
-    "fetchedAt": "2026-07-03T07:03:48.790Z",
+    "fetchedAt": "2026-07-03T07:57:53.329Z",
     "copyrightNote": "metadata_snippet_only"
   }
 ]

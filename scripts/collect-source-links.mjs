@@ -41,60 +41,55 @@ async function main() {
     }
 
     try {
-      const html = await fetchHtml(seed.url);
-      const title = cleanText(seed.title ?? extractTitle(html) ?? seed.url);
-      const text = htmlToText(html);
-      const document = {
-        id: seed.id ?? makeDocumentId(seed.url),
-        sourceName: seed.sourceName,
-        sourceSite: seed.sourceSite ?? new URL(seed.url).hostname,
-        sourceType: seed.sourceType ?? "reference",
-        ...(seed.category ? { category: seed.category } : {}),
-        title,
-        url: seed.url,
-        fetchedAt: collectedAt,
-        copyrightNote: "metadata_snippet_only",
-      };
-      const directVerseIds = new Set(
-        extractVerseReferences(title)
-          .map((reference) => reference.verseId)
-          .filter((verseId) => knownVerseIds.has(verseId)),
-      );
-      const references = extractVerseReferences(`${title} ${text}`);
+      const collectedDocuments = await collectSeedDocuments(seed, collectedAt);
 
-      documents.push(document);
+      for (const { document, text } of collectedDocuments) {
+        const directVerseIds = new Set(
+          extractVerseReferences(document.title)
+            .map((reference) => reference.verseId)
+            .filter((verseId) => knownVerseIds.has(verseId)),
+        );
+        const references = extractVerseReferences(`${document.title} ${text}`);
 
-      for (const reference of references) {
-        if (!knownVerseIds.has(reference.verseId)) {
-          continue;
+        documents.push(document);
+
+        for (const reference of references) {
+          if (!knownVerseIds.has(reference.verseId)) {
+            continue;
+          }
+
+          const key = `${document.id}:${reference.verseId}`;
+          const existing = linkByKey.get(key);
+          const relationType = directVerseIds.has(reference.verseId)
+            ? "direct_interpretation"
+            : "source_reference";
+          const confidence =
+            relationType === "direct_interpretation"
+              ? "official_direct"
+              : "official_reference";
+          const link = {
+            id: `${document.id}-${reference.verseId}`,
+            verseId: reference.verseId,
+            sourceDocumentId: document.id,
+            relationType,
+            confidence,
+            reviewStatus: "auto",
+            matchedText: reference.matchedText,
+            evidenceSnippet: makeSnippet(
+              reference.fullText,
+              reference.index,
+              reference.matchedText,
+            ),
+            createdAt: collectedAt,
+          };
+
+          if (!existing || shouldReplaceLink(existing, link)) {
+            linkByKey.set(key, link);
+          }
         }
 
-        const key = `${document.id}:${reference.verseId}`;
-        const existing = linkByKey.get(key);
-        const relationType = directVerseIds.has(reference.verseId)
-          ? "direct_interpretation"
-          : "source_reference";
-        const confidence =
-          relationType === "direct_interpretation"
-            ? "official_direct"
-            : "official_reference";
-        const link = {
-          id: `${document.id}-${reference.verseId}`,
-          verseId: reference.verseId,
-          sourceDocumentId: document.id,
-          relationType,
-          confidence,
-          matchedText: reference.matchedText,
-          evidenceSnippet: makeSnippet(reference.fullText, reference.index, reference.matchedText),
-          createdAt: collectedAt,
-        };
-
-        if (!existing || shouldReplaceLink(existing, link)) {
-          linkByKey.set(key, link);
-        }
+        console.log(`${document.title} -> ${references.length} references scanned`);
       }
-
-      console.log(`${document.title} -> ${references.length} references scanned`);
     } catch (error) {
       console.warn(`Skipped ${seed.url}: ${error.message}`);
     }
@@ -176,9 +171,102 @@ async function fetchHtml(url) {
 }
 
 async function fetchHtmlDirect(url) {
-  const response = await fetch(url, {
+  const { text } = await fetchTextWithHeaders(url, {
     headers: requestHeaders,
     redirect: "follow",
+  });
+
+  return text;
+}
+
+async function collectSeedDocuments(seed, collectedAt) {
+  if (seed.fetchMode === "dirc_dict") {
+    return collectDircDictDocuments(seed, collectedAt);
+  }
+
+  const html = await fetchHtml(seed.url);
+  const title = cleanText(seed.title ?? extractTitle(html) ?? seed.url);
+
+  return [
+    {
+      document: makeDocument(seed, {
+        id: seed.id ?? makeDocumentId(seed.url),
+        title,
+        url: seed.url,
+        fetchedAt: collectedAt,
+      }),
+      text: htmlToText(html),
+    },
+  ];
+}
+
+async function collectDircDictDocuments(seed, collectedAt) {
+  const page = await fetchTextWithHeaders(seed.url, {
+    headers: requestHeaders,
+    redirect: "follow",
+  });
+  const token = extractDircCsrfToken(page.text);
+  const cookie = extractCookieHeader(page.headers);
+  const groups = seed.groups ?? extractDircGroups(page.text);
+  const documents = [];
+
+  if (!token) {
+    throw new Error("DIRC CSRF token not found.");
+  }
+
+  if (groups.length === 0) {
+    throw new Error("DIRC groups not found.");
+  }
+
+  for (const [index, group] of groups.entries()) {
+    if (index > 0) {
+      await delay(200);
+    }
+
+    const processUrl = new URL("process/getData", seed.url).toString();
+    const response = await fetchTextWithHeaders(processUrl, {
+      method: "POST",
+      headers: {
+        ...requestHeaders,
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "X-CSRF-TOKEN": token,
+        "X-Requested-With": "XMLHttpRequest",
+        Referer: seed.url,
+        ...(cookie ? { Cookie: cookie } : {}),
+      },
+      body: new URLSearchParams({
+        group_id: String(group.id),
+        exlang: seed.exlang ?? "",
+      }),
+    });
+    const result = JSON.parse(response.text);
+
+    if (!result.data) {
+      throw new Error(`DIRC group ${group.id} returned no data.`);
+    }
+
+    const groupHtml = result.data.flat().join(" ");
+    const title = `${seed.title} - ${group.title}`;
+
+    documents.push({
+      document: makeDocument(seed, {
+        id: `${seed.id}-group-${group.id}`,
+        title,
+        url: `${seed.url}#group-${group.id}`,
+        fetchedAt: collectedAt,
+      }),
+      text: htmlToText(groupHtml),
+    });
+  }
+
+  return documents;
+}
+
+async function fetchTextWithHeaders(url, init) {
+  const response = await fetch(url, {
+    ...init,
+    headers: init?.headers ?? requestHeaders,
+    redirect: init?.redirect ?? "follow",
   });
 
   if (!response.ok) {
@@ -186,7 +274,76 @@ async function fetchHtmlDirect(url) {
   }
 
   const buffer = Buffer.from(await response.arrayBuffer());
-  return decodeResponse(buffer, response.headers.get("content-type") ?? "");
+
+  return {
+    headers: response.headers,
+    text: decodeResponse(buffer, response.headers.get("content-type") ?? ""),
+  };
+}
+
+function makeDocument(seed, { id, title, url, fetchedAt }) {
+  return {
+    id,
+    sourceName: seed.sourceName,
+    sourceSite: seed.sourceSite ?? new URL(url).hostname,
+    sourceType: seed.sourceType ?? "reference",
+    ...(seed.category ? { category: seed.category } : {}),
+    title,
+    url,
+    fetchedAt,
+    copyrightNote: "metadata_snippet_only",
+  };
+}
+
+function extractCookieHeader(headers) {
+  const cookieValues =
+    typeof headers.getSetCookie === "function"
+      ? headers.getSetCookie()
+      : headers.get("set-cookie")
+        ? [headers.get("set-cookie")]
+        : [];
+
+  return cookieValues
+    .map((cookie) => cookie.split(";")[0])
+    .filter(Boolean)
+    .join("; ");
+}
+
+function extractDircCsrfToken(html) {
+  const match = /setEn\("(\[[^\"]+\])"\)/.exec(html);
+
+  if (!match) {
+    return undefined;
+  }
+
+  return decodeDircArray(JSON.parse(match[1]));
+}
+
+function extractDircGroups(html) {
+  const groups = [];
+  const found = new Set();
+  const pattern = /<li\b[^>]*rel=['"](\d+)['"][^>]*>\s*<a[^>]*>([\s\S]*?)<\/a>/gi;
+  let match;
+
+  while ((match = pattern.exec(html))) {
+    const id = Number(match[1]);
+
+    if (found.has(id)) {
+      continue;
+    }
+
+    found.add(id);
+    groups.push({
+      id,
+      title: htmlToText(match[2]),
+    });
+  }
+
+  return groups;
+}
+
+function decodeDircArray(numbers) {
+  return numbers.map((number) => String.fromCharCode(number + 45)).join("");
 }
 
 function decodeResponse(buffer, contentType) {
@@ -297,14 +454,14 @@ function extractVerseReferences(fullText) {
 function extractChapterReferences(fullText) {
   const references = [];
   const pattern =
-    /(행록|공사|교운|교법|권지|제생|예시)\s*(\d+)\s*장\s*(\d+)\s*(?:[~∼\-–]\s*(\d+))?\s*절/g;
+    /(행록|공사|교운|교법|권지|제생|예시)\s*([0-9一二三四五六七八九十百零〇]+)\s*장\s*([0-9一二三四五六七八九十百零〇]+)\s*(?:[~∼\-–]\s*([0-9一二三四五六七八九十百零〇]+))?\s*절/g;
   let match;
 
   while ((match = pattern.exec(fullText))) {
     const [, book, chapterText, startVerseText, endVerseText] = match;
-    const chapter = Number(chapterText);
-    const startVerse = Number(startVerseText);
-    const endVerse = endVerseText ? Number(endVerseText) : startVerse;
+    const chapter = parseReferenceNumber(chapterText);
+    const startVerse = parseReferenceNumber(startVerseText);
+    const endVerse = endVerseText ? parseReferenceNumber(endVerseText) : startVerse;
 
     references.push(
       ...makeRangeReferences({
@@ -324,7 +481,8 @@ function extractChapterReferences(fullText) {
 
 function extractCompactReferences(fullText) {
   const references = [];
-  const pattern = /(행록|공사|교운|교법|권지|제생|예시)\s*(\d+)\s*[-:]\s*(\d+)\b/g;
+  const pattern =
+    /(행록|공사|교운|교법|권지|제생|예시)\s*([0-9一二三四五六七八九十百零〇]+)\s*[-－:]\s*([0-9一二三四五六七八九十百零〇]+)(?=$|[^0-9一二三四五六七八九十百零〇])/g;
   let match;
 
   while ((match = pattern.exec(fullText))) {
@@ -336,8 +494,8 @@ function extractCompactReferences(fullText) {
         index: match.index,
         matchedText: match[0],
         book,
-        chapter: Number(chapterText),
-        verse: Number(verseText),
+        chapter: parseReferenceNumber(chapterText),
+        verse: parseReferenceNumber(verseText),
       }),
     );
   }
@@ -347,13 +505,14 @@ function extractCompactReferences(fullText) {
 
 function extractDefaultChapterReferences(fullText) {
   const references = [];
-  const pattern = /(제생|예시)\s*(\d+)\s*(?:[~∼\-–]\s*(\d+))?\s*절/g;
+  const pattern =
+    /(제생|예시)\s*([0-9一二三四五六七八九十百零〇]+)\s*(?:[~∼\-–]\s*([0-9一二三四五六七八九十百零〇]+))?\s*절/g;
   let match;
 
   while ((match = pattern.exec(fullText))) {
     const [, book, startVerseText, endVerseText] = match;
-    const startVerse = Number(startVerseText);
-    const endVerse = endVerseText ? Number(endVerseText) : startVerse;
+    const startVerse = parseReferenceNumber(startVerseText);
+    const endVerse = endVerseText ? parseReferenceNumber(endVerseText) : startVerse;
 
     references.push(
       ...makeRangeReferences({
@@ -369,6 +528,39 @@ function extractDefaultChapterReferences(fullText) {
   }
 
   return references.filter(({ book }) => defaultChapterBooks.has(book));
+}
+
+function parseReferenceNumber(value) {
+  if (/^\d+$/.test(value)) {
+    return Number(value);
+  }
+
+  const normalized = value.replace(/零|〇/g, "");
+  const digitByChar = new Map([
+    ["一", 1],
+    ["二", 2],
+    ["三", 3],
+    ["四", 4],
+    ["五", 5],
+    ["六", 6],
+    ["七", 7],
+    ["八", 8],
+    ["九", 9],
+  ]);
+
+  if (normalized.includes("百")) {
+    const [hundredsText, restText = ""] = normalized.split("百");
+    const hundreds = (digitByChar.get(hundredsText) ?? 1) * 100;
+    return hundreds + (restText ? parseReferenceNumber(restText) : 0);
+  }
+
+  if (normalized.includes("十")) {
+    const [tensText, onesText = ""] = normalized.split("十");
+    const tens = (digitByChar.get(tensText) ?? 1) * 10;
+    return tens + (onesText ? digitByChar.get(onesText) ?? 0 : 0);
+  }
+
+  return digitByChar.get(normalized) ?? Number.NaN;
 }
 
 function makeRangeReferences({

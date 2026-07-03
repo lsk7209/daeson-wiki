@@ -56,5 +56,61 @@
     "sourceType": "education",
     "category": "전경 용어/해설",
     "url": "http://gyomubu.or.kr/bbs/board.php?bo_table=002_501070&wr_id=27"
+  },
+  {
+    "id": "dict-dirc-daesoon-guidelines",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순지침",
+    "title": "대순지침",
+    "url": "http://dict.dirc.kr/app/k/2/page",
+    "fetchMode": "dirc_dict"
+  },
+  {
+    "id": "dict-dirc-daesoon-handbook",
+    "sourceName": "대순종교문화연구소 DIC",
+    "sourceSite": "dict.dirc.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순진리회요람",
+    "title": "대순진리회요람",
+    "url": "http://dict.dirc.kr/app/k/3/page",
+    "fetchMode": "dirc_dict"
+  },
+  {
+    "id": "gyomubu-content-002-301040",
+    "sourceName": "교화연구",
+    "sourceSite": "gyomubu.or.kr",
+    "sourceType": "canonical_guidance",
+    "category": "포덕교화기본원리",
+    "title": "포덕교화기본원리1",
+    "url": "http://gyomubu.or.kr/bbs/content.php?co_id=002_301040"
+  },
+  {
+    "id": "gyomubu-content-002-301050",
+    "sourceName": "교화연구",
+    "sourceSite": "gyomubu.or.kr",
+    "sourceType": "canonical_guidance",
+    "category": "포덕교화기본원리",
+    "title": "포덕교화기본원리2",
+    "url": "http://gyomubu.or.kr/bbs/content.php?co_id=002_301050"
+  },
+  {
+    "id": "gyomubu-content-002-301060",
+    "sourceName": "교화연구",
+    "sourceSite": "gyomubu.or.kr",
+    "sourceType": "canonical_guidance",
+    "category": "대순성적도해요람",
+    "title": "대순성적도해요람",
+    "url": "http://gyomubu.or.kr/bbs/content.php?co_id=002_301060"
+  },
+  {
+    "id": "gyomubu-content-002-301070",
+    "sourceName": "교화연구",
+    "sourceSite": "gyomubu.or.kr",
+    "sourceType": "canonical_guidance",
+    "category": "도헌",
+    "title": "도헌",
+    "url": "http://gyomubu.or.kr/bbs/content.php?co_id=002_301070"
   }
 ]

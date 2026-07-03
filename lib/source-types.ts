@@ -33,6 +33,7 @@ export type VerseSourceLink = {
   sourceDocumentId: string;
   relationType: SourceRelationType;
   confidence: SourceConfidence;
+  reviewStatus: "auto" | "reviewed" | "rejected";
   matchedText: string;
   evidenceSnippet: string;
   createdAt: string;
