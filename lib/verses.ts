@@ -1,0 +1,111 @@
+import versesRaw from "@/data/verses.json";
+import type { JeongyeongBook, JeongyeongVerse } from "@/lib/verse-types";
+
+export const bookOrder: JeongyeongBook[] = [
+  "행록",
+  "공사",
+  "교운",
+  "교법",
+  "권지",
+  "제생",
+  "예시",
+];
+
+export const verses = versesRaw as JeongyeongVerse[];
+
+export function getAllVerses() {
+  return [...verses].sort(compareVerses);
+}
+
+export function getVerseById(id: string) {
+  return verses.find((verse) => verse.id === id);
+}
+
+export function getAdjacentVerses(id: string) {
+  const sorted = getAllVerses();
+  const index = sorted.findIndex((verse) => verse.id === id);
+
+  return {
+    previous: index > 0 ? sorted[index - 1] : undefined,
+    next: index >= 0 && index < sorted.length - 1 ? sorted[index + 1] : undefined,
+  };
+}
+
+export function getDailyVerse(date = new Date()) {
+  if (verses.length === 0) {
+    return undefined;
+  }
+
+  const { year, month, day } = getKoreaDateParts(date);
+  const utcDay = Date.UTC(year, month - 1, day);
+  const baseDay = Date.UTC(2026, 0, 1);
+  const dayOffset = Math.floor((utcDay - baseDay) / 86_400_000);
+  const index = modulo(dayOffset, verses.length);
+
+  return getAllVerses()[index];
+}
+
+export function getVersePreview(text: string, length = 96) {
+  if (text.length <= length) {
+    return text;
+  }
+
+  return `${text.slice(0, length).trim()}...`;
+}
+
+export function getBookGroups() {
+  const groups = new Map<
+    JeongyeongBook,
+    Map<number, JeongyeongVerse[]>
+  >();
+
+  for (const book of bookOrder) {
+    groups.set(book, new Map());
+  }
+
+  for (const verse of getAllVerses()) {
+    const chapters = groups.get(verse.book) ?? new Map<number, JeongyeongVerse[]>();
+    const chapter = chapters.get(verse.chapter) ?? [];
+    chapter.push(verse);
+    chapters.set(verse.chapter, chapter);
+    groups.set(verse.book, chapters);
+  }
+
+  return groups;
+}
+
+function compareVerses(a: JeongyeongVerse, b: JeongyeongVerse) {
+  return (
+    bookOrder.indexOf(a.book) - bookOrder.indexOf(b.book) ||
+    a.chapter - b.chapter ||
+    a.verse - b.verse
+  );
+}
+
+function getKoreaDateParts(date: Date) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Seoul",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(date);
+
+  const read = (type: "year" | "month" | "day") => {
+    const value = parts.find((part) => part.type === type)?.value;
+    if (!value) {
+      throw new Error(`Missing ${type} in formatted date.`);
+    }
+
+    return Number(value);
+  };
+
+  return {
+    year: read("year"),
+    month: read("month"),
+    day: read("day"),
+  };
+}
+
+function modulo(value: number, divisor: number) {
+  return ((value % divisor) + divisor) % divisor;
+}

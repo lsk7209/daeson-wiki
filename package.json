@@ -1,0 +1,33 @@
+{
+  "name": "daeson-wiki",
+  "version": "1.0.0",
+  "description": "Private Jeongyeong verse reader and daily note app.",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "type-check": "tsc --noEmit",
+    "scrape:dry-run": "node scripts/scrape-daesoon.mjs --dry-run",
+    "scrape": "node scripts/scrape-daesoon.mjs --confirm"
+  },
+  "keywords": [
+    "jeongyeong",
+    "daesoon",
+    "private"
+  ],
+  "author": "",
+  "license": "UNLICENSED",
+  "type": "module",
+  "dependencies": {
+    "next": "^16.2.10",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.9.0"
+  }
+}

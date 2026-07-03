@@ -1,0 +1,395 @@
+:root {
+  color-scheme: light;
+  --bg: #f7f3ea;
+  --surface: #ffffff;
+  --surface-muted: #eee7da;
+  --text: #191714;
+  --muted: #70685d;
+  --line: #ded4c5;
+  --accent: #116466;
+  --accent-dark: #0b4546;
+  --gold: #a36f14;
+  --shadow: 0 18px 55px rgba(42, 36, 25, 0.11);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: var(--bg);
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  color: var(--text);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.54), rgba(255, 255, 255, 0)),
+    var(--bg);
+  font-family:
+    Arial,
+    "Apple SD Gothic Neo",
+    "Malgun Gothic",
+    sans-serif;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+textarea,
+input {
+  font: inherit;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+  padding: 0 32px;
+  border-bottom: 1px solid rgba(25, 23, 20, 0.08);
+  background: rgba(247, 243, 234, 0.92);
+  backdrop-filter: blur(14px);
+}
+
+.brand {
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.top-nav {
+  display: flex;
+  gap: 16px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.page-shell {
+  width: min(1120px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 36px 0 72px;
+}
+
+.daily-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: end;
+  padding: 32px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 16px;
+  font-size: clamp(30px, 4vw, 48px);
+  line-height: 1.18;
+  letter-spacing: 0;
+}
+
+h2 {
+  margin-bottom: 10px;
+  font-size: 26px;
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+
+h3 {
+  margin-bottom: 16px;
+  font-size: 22px;
+  letter-spacing: 0;
+}
+
+.daily-text {
+  max-width: 760px;
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 18px;
+}
+
+.primary-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 800;
+}
+
+.primary-link:hover {
+  background: var(--accent-dark);
+}
+
+.index-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+  margin: 42px 0 20px;
+}
+
+.index-heading h2 {
+  margin-bottom: 0;
+}
+
+.count-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.56);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.book-list {
+  display: grid;
+  gap: 36px;
+}
+
+.book-section {
+  padding-top: 8px;
+}
+
+.chapter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+}
+
+.chapter-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.chapter-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 48px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-muted);
+}
+
+.chapter-title span {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+ol {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li + li {
+  border-top: 1px solid rgba(222, 212, 197, 0.72);
+}
+
+li a {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 12px;
+  min-height: 78px;
+  padding: 14px 16px;
+}
+
+li a:hover {
+  background: rgba(17, 100, 102, 0.06);
+}
+
+li span {
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+li p {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.verse-layout {
+  max-width: 920px;
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.breadcrumb span::before {
+  content: "/";
+  margin-right: 8px;
+  color: #aa9e8d;
+}
+
+.verse-detail,
+.commentary-panel,
+.note-field {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.verse-detail {
+  padding: 34px;
+  box-shadow: var(--shadow);
+}
+
+.verse-text {
+  margin-bottom: 24px;
+  font-size: 22px;
+  line-height: 1.9;
+  word-break: keep-all;
+}
+
+.source-link {
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.commentary-panel {
+  margin-top: 22px;
+  padding: 24px;
+}
+
+.commentary-panel p:last-child {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.note-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.note-field {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+}
+
+.note-field span {
+  font-weight: 800;
+}
+
+.note-field textarea {
+  width: 100%;
+  min-height: 220px;
+  resize: vertical;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 14px;
+  color: var(--text);
+  background: #fffdf9;
+}
+
+.note-field textarea:focus {
+  outline: 3px solid rgba(17, 100, 102, 0.18);
+  border-color: var(--accent);
+}
+
+.verse-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.verse-nav a {
+  max-width: 50%;
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.empty-state {
+  display: grid;
+  gap: 20px;
+  justify-items: start;
+}
+
+@media (max-width: 760px) {
+  .site-header {
+    min-height: 58px;
+    padding: 0 18px;
+  }
+
+  .page-shell {
+    width: min(100% - 28px, 1120px);
+    padding-top: 22px;
+  }
+
+  .daily-panel,
+  .index-heading,
+  .note-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .daily-panel,
+  .verse-detail {
+    padding: 22px;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  .verse-text {
+    font-size: 19px;
+  }
+
+  .verse-nav {
+    display: grid;
+  }
+
+  .verse-nav a {
+    max-width: none;
+  }
+}

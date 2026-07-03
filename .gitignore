@@ -1,0 +1,13 @@
+.next/
+node_modules/
+node_modules_broken/
+node_modules_partial*/
+.empty-node-modules/
+.verify-path
+out/
+dist/
+.env
+.env.*
+!.env.example
+*.log
+*.tsbuildinfo
