@@ -1,0 +1,79 @@
+[
+  {
+    "id": "gyomubu-002-501020-100",
+    "sourceName": "교화연구",
+    "sourceSite": "gyomubu.or.kr",
+    "sourceType": "education",
+    "category": "전경 속 이야기",
+    "title": "선자사지(善者師之) 악자개지(惡者改之) > 청계탑",
+    "url": "http://gyomubu.or.kr/bbs/board.php?bo_table=002_501020&wr_id=100",
+    "fetchedAt": "2026-07-03T07:03:48.790Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "gyomubu-002-501070-27",
+    "sourceName": "교화연구",
+    "sourceSite": "gyomubu.or.kr",
+    "sourceType": "education",
+    "category": "전경 용어/해설",
+    "title": "전경의 구성과 내용을 설명해 주세요. > Q&A",
+    "url": "http://gyomubu.or.kr/bbs/board.php?bo_table=002_501070&wr_id=27",
+    "fetchedAt": "2026-07-03T07:03:48.790Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "webzine-daesoon-haengrok-3-19",
+    "sourceName": "대순회보",
+    "sourceSite": "webzine.daesoon.org",
+    "sourceType": "webzine",
+    "category": "전경성구",
+    "title": "행록 3장 19절의 교훈",
+    "url": "https://webzine.daesoon.org/board/readcnt.asp?webzine=305&menu_no=5137&bno=9497&page=1",
+    "fetchedAt": "2026-07-03T07:03:48.790Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "webzine-dirc-article-160",
+    "sourceName": "대순종교문화연구소 웹진",
+    "sourceSite": "webzine.dirc.kr",
+    "sourceType": "research_webzine",
+    "category": "article",
+    "title": "전경 교운 1장 9절 속 지하의 의미",
+    "url": "https://webzine.dirc.kr/article/160",
+    "fetchedAt": "2026-07-03T07:03:48.790Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "webzine-dirc-article-177",
+    "sourceName": "대순종교문화연구소 웹진",
+    "sourceSite": "webzine.dirc.kr",
+    "sourceType": "research_webzine",
+    "category": "article",
+    "title": "증산의 언설로 보는 가짜뉴스",
+    "url": "https://webzine.dirc.kr/article/177",
+    "fetchedAt": "2026-07-03T07:03:48.790Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "webzine-dirc-article-115",
+    "sourceName": "대순종교문화연구소 웹진",
+    "sourceSite": "webzine.dirc.kr",
+    "sourceType": "research_webzine",
+    "category": "article",
+    "title": "척신과 마(魔)가 풀리는 원리",
+    "url": "https://webzine.dirc.kr/article/115",
+    "fetchedAt": "2026-07-03T07:03:48.790Z",
+    "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "webzine-dirc-article-145",
+    "sourceName": "대순종교문화연구소 웹진",
+    "sourceSite": "webzine.dirc.kr",
+    "sourceType": "research_webzine",
+    "category": "article",
+    "title": "초록눈의 괴물 - '질투'의 심리학적 분석",
+    "url": "https://webzine.dirc.kr/article/145",
+    "fetchedAt": "2026-07-03T07:03:48.790Z",
+    "copyrightNote": "metadata_snippet_only"
+  }
+]

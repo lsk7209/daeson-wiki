@@ -5,7 +5,11 @@ Next.js 기반 개인용 전경 구절 기록장입니다.
 ## 현재 구조
 
 - `data/verses.json`: 전경 구절 데이터
+- `data/source-seeds.json`: 전경 해설/관련 자료 수집 대상 URL
+- `data/source-documents.json`: 수집한 자료의 제목, URL, 출처 메타데이터
+- `data/verse-source-links.json`: 구절과 관련 자료의 연결 정보
 - `scripts/scrape-daesoon.mjs`: 대순진리회 공식 사이트 전경 페이지 수집기
+- `scripts/collect-source-links.mjs`: 관련 자료에서 전경 구절 표기를 찾아 연결하는 수집기
 - `app/page.tsx`: 오늘의 전경과 권별 목록
 - `app/verses/[id]/page.tsx`: 원문, 해설, 나의 첨언, 낙서장
 - `public/robots.txt`: 전체 검색 로봇 차단
@@ -55,6 +59,16 @@ npm run scrape
   "scrapedAt": "2026-07-03T00:00:00.000Z"
 }
 ```
+
+## 관련 자료 연결
+
+전경 해설, 용어 해설, 공사 해석 등은 원문과 분리된 별도 데이터 레이어에 저장합니다. 외부 자료 전문은 저장하지 않고 제목, URL, 출처, 구절 표기 주변의 짧은 근거 문구만 저장합니다.
+
+```bash
+npm run collect:sources
+```
+
+새 공식/관련 자료 URL은 `data/source-seeds.json`에 추가한 뒤 위 명령을 다시 실행합니다.
 
 ## 검색 노출 차단
 

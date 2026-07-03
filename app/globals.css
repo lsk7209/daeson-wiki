@@ -341,6 +341,7 @@ li p {
 
 .verse-detail,
 .commentary-panel,
+.related-sources,
 .note-field {
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -373,6 +374,64 @@ li p {
 .commentary-panel p:last-child {
   margin-bottom: 0;
   color: var(--muted);
+}
+
+.related-sources {
+  margin-top: 22px;
+  padding: 24px;
+  background: var(--surface);
+}
+
+.related-sources-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.related-sources-heading h2 {
+  margin-bottom: 0;
+}
+
+.related-sources-heading > span {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.related-source-list {
+  display: grid;
+  gap: 0;
+}
+
+.related-source-row {
+  display: grid;
+  gap: 8px;
+  padding: 16px 0;
+  border-top: 1px solid rgba(222, 212, 197, 0.72);
+}
+
+.related-source-row a {
+  display: grid;
+  gap: 4px;
+}
+
+.related-source-row strong {
+  color: var(--accent);
+  font-size: 17px;
+}
+
+.related-source-row span {
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.related-source-row p {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 14px;
 }
 
 .note-panel {
@@ -468,6 +527,11 @@ li p {
   .note-heading,
   .note-grid {
     grid-template-columns: 1fr;
+  }
+
+  .related-sources-heading {
+    align-items: start;
+    flex-direction: column;
   }
 
   .note-heading {

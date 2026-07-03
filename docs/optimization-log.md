@@ -48,3 +48,10 @@
 - 전경 원문 `data/verses.json`의 `text`는 직접 수정 금지
 - 볼드, 링크, 클릭, 주석, 해설은 별도 화면/데이터 레이어에서 처리
 - `npm run verify:verses`로 원문과 잠금 메타데이터 변경 여부 확인
+
+## 관련 자료 레이어
+
+- 공식/관련 자료 URL은 `data/source-seeds.json`에 추가
+- `npm run collect:sources`는 제목, URL, 출처, 구절 주변 짧은 근거 문구만 저장
+- 외부 자료 전문은 저장하지 않고 `data/verse-source-links.json`에서 구절 ID와 연결
+- 구절 상세 페이지는 이 연결 레이어를 읽어 원문 아래에 관련 자료를 표시

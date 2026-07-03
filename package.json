@@ -9,6 +9,7 @@
     "start": "next start",
     "type-check": "tsc --noEmit",
     "verify:verses": "node scripts/verify-verses-integrity.mjs",
+    "collect:sources": "node scripts/collect-source-links.mjs",
     "scrape:dry-run": "node scripts/scrape-daesoon.mjs --dry-run",
     "scrape": "node scripts/scrape-daesoon.mjs --confirm"
   },

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import NotePad from "@/app/verses/[id]/note-pad";
+import { getSourceLinksForVerse } from "@/lib/source-links";
+import type { VerseSourceLink } from "@/lib/source-types";
 import {
   getAdjacentVerses,
   getAllVerses,
@@ -41,6 +43,7 @@ export default async function VersePage({ params }: VersePageProps) {
   }
 
   const adjacent = getAdjacentVerses(verse.id);
+  const relatedSources = getSourceLinksForVerse(verse.id);
 
   return (
     <div className="page-shell verse-layout">
@@ -70,6 +73,32 @@ export default async function VersePage({ params }: VersePageProps) {
         </p>
       </section>
 
+      {relatedSources.length > 0 ? (
+        <section className="related-sources">
+          <div className="related-sources-heading">
+            <div>
+              <p className="eyebrow">연결 자료</p>
+              <h2>공식/관련 자료</h2>
+            </div>
+            <span>{relatedSources.length}건</span>
+          </div>
+          <div className="related-source-list">
+            {relatedSources.map((sourceLink) => (
+              <div className="related-source-row" key={sourceLink.id}>
+                <a href={sourceLink.document.url} rel="noreferrer">
+                  <strong>{sourceLink.document.title}</strong>
+                  <span>
+                    {sourceLink.document.sourceName} ·{" "}
+                    {getRelationLabel(sourceLink.relationType)}
+                  </span>
+                </a>
+                <p>{sourceLink.evidenceSnippet}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
       <NotePad verseId={verse.id} />
 
       <nav className="verse-nav" aria-label="구절 이동">
@@ -88,4 +117,16 @@ export default async function VersePage({ params }: VersePageProps) {
       </nav>
     </div>
   );
+}
+
+function getRelationLabel(relationType: VerseSourceLink["relationType"]) {
+  if (relationType === "direct_interpretation") {
+    return "직접 해설";
+  }
+
+  if (relationType === "term_gloss") {
+    return "용어 해설";
+  }
+
+  return "관련 인용";
 }
