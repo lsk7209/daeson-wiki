@@ -35,6 +35,7 @@ const verseIndexById = new Map(
 );
 const groups = buildBookGroups();
 const summaries = buildBookSummaries();
+const dailySequenceStartDay = Date.UTC(2026, 6, 3);
 
 export function getAllVerses() {
   return verses;
@@ -63,8 +64,7 @@ export function getDailyVerse(date = new Date()) {
 
   const { year, month, day } = getKoreaDateParts(date);
   const utcDay = Date.UTC(year, month - 1, day);
-  const baseDay = Date.UTC(2026, 0, 1);
-  const dayOffset = Math.floor((utcDay - baseDay) / 86_400_000);
+  const dayOffset = Math.floor((utcDay - dailySequenceStartDay) / 86_400_000);
   const index = modulo(dayOffset, verses.length);
 
   return verses[index];
