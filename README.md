@@ -60,3 +60,19 @@ npm run scrape
 
 초기 요청대로 로그인 없이 `robots.txt`, HTML metadata, `X-Robots-Tag`만 적용했습니다.
 완전한 비공개가 필요하면 이후 로그인 또는 Basic Auth를 추가해야 합니다.
+
+## 원문 불변 규칙
+
+전경 원문은 절대 수정하지 않습니다. `data/verses.json`의 `text`는 공식 사이트에서 수집한 브라우저 표시 기준 원문이며, 볼드/링크/클릭 같은 표시는 원문 데이터를 바꾸지 않고 별도 화면 레이어에서 처리합니다.
+
+원문 또는 잠금 메타데이터가 바뀌었는지 확인합니다.
+
+```bash
+npm run verify:verses
+```
+
+정당한 공식 재수집으로 기준선을 바꿔야 할 때만 다음 명령을 사용합니다.
+
+```bash
+node scripts/verify-verses-integrity.mjs --write
+```
