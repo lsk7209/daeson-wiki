@@ -145,6 +145,13 @@ h3 {
   font-size: 18px;
 }
 
+.daily-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
 .primary-link {
   display: inline-flex;
   align-items: center;
@@ -159,6 +166,30 @@ h3 {
 
 .primary-link:hover {
   background: var(--accent-dark);
+}
+
+.secondary-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0 16px;
+  color: var(--accent);
+  background: rgba(255, 255, 255, 0.72);
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.secondary-link:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.secondary-link:hover:not(:disabled) {
+  border-color: rgba(17, 100, 102, 0.44);
+  background: #fff;
 }
 
 .index-heading {
@@ -446,6 +477,14 @@ li p {
   .daily-panel,
   .verse-detail {
     padding: 22px;
+  }
+
+  .daily-actions {
+    justify-content: stretch;
+  }
+
+  .daily-actions > * {
+    flex: 1 1 140px;
   }
 
   h1 {

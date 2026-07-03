@@ -18,11 +18,21 @@
 - 개인 첨언/낙서장에 저장 상태 표시 추가
 - 검색 차단 유지: `robots.txt` 전체 차단, 모든 라우트 `X-Robots-Tag: noindex`
 
+## 알림/PWA 확장
+
+- `/today` 동적 라우트 추가: 한국 날짜 기준 오늘의 구절 상세 페이지로 이동
+- `/api/daily` 추가: 향후 서버 푸시/스케줄러가 사용할 오늘의 구절 JSON 제공
+- 홈에 알림 권한 버튼 추가: 지원 브라우저에서 서비스워커 알림 테스트 가능
+- 서비스워커에 `push`, `notificationclick` 핸들러 추가
+- manifest shortcut을 `/today`로 연결
+
 ## 검증 기준
 
 - `npm run type-check`
 - `npm run build`
 - `/`, `/books/gyobeop`, `/verses/haengrok-1-1` HTTP 200
+- `/today` HTTP 307 redirect
+- `/api/daily` HTTP 200 JSON
 - `/manifest.webmanifest`, `/sw.js`, `/robots.txt` HTTP 200
 - 전경 데이터 839구절, 중복 ID 0개, 장 표기 누락 0개
 

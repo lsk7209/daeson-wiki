@@ -19,7 +19,7 @@
   "shortcuts": [
     {
       "name": "오늘의 전경",
-      "url": "/",
+      "url": "/today",
       "description": "오늘의 전경 구절"
     }
   ]

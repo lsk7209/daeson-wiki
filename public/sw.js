@@ -1,4 +1,4 @@
-const CACHE_NAME = "daeson-wiki-v1";
+const CACHE_NAME = "daeson-wiki-v2";
 const APP_SHELL = ["/", "/offline", "/manifest.webmanifest", "/icon.svg"];
 
 self.addEventListener("install", (event) => {
@@ -64,4 +64,44 @@ self.addEventListener("fetch", (event) => {
       }),
     );
   }
+});
+
+self.addEventListener("push", (event) => {
+  const fallback = {
+    title: "오늘의 전경",
+    body: "오늘의 구절을 확인하세요.",
+    url: "/today",
+  };
+  const payload = event.data ? event.data.json() : fallback;
+
+  event.waitUntil(
+    self.registration.showNotification(payload.title ?? fallback.title, {
+      body: payload.body ?? fallback.body,
+      icon: "/icon.svg",
+      badge: "/icon.svg",
+      tag: payload.tag ?? "daily-jeongyeong",
+      data: {
+        url: payload.url ?? fallback.url,
+      },
+    }),
+  );
+});
+
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+
+  const targetUrl = event.notification.data?.url ?? "/today";
+  const absoluteUrl = new URL(targetUrl, self.location.origin).href;
+
+  event.waitUntil(
+    self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((clients) => {
+      for (const client of clients) {
+        if (client.url === absoluteUrl && "focus" in client) {
+          return client.focus();
+        }
+      }
+
+      return self.clients.openWindow(absoluteUrl);
+    }),
+  );
 });

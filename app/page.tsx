@@ -1,4 +1,5 @@
 import Link from "next/link";
+import DailyReminder from "@/app/daily-reminder";
 import {
   getBookSummaries,
   getDailyVerse,
@@ -31,9 +32,19 @@ export default function HomePage() {
           )}
         </div>
         {today ? (
-          <Link className="primary-link" href={`/verses/${today.id}`}>
-            상세 보기
-          </Link>
+          <div className="daily-actions">
+            <Link className="primary-link" href={`/verses/${today.id}`}>
+              상세 보기
+            </Link>
+            <Link className="secondary-link" href="/today">
+              오늘 링크
+            </Link>
+            <DailyReminder
+              preview={getVersePreview(today.text, 140)}
+              title={today.title}
+              verseId={today.id}
+            />
+          </div>
         ) : null}
       </section>
 
