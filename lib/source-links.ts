@@ -21,6 +21,32 @@ export function getSourceLinksForVerse(
   return linksByVerse.get(verseId) ?? [];
 }
 
+export function getAllSourceLinks() {
+  return verseSourceLinks
+    .map((link) => {
+      const document = documentById.get(link.sourceDocumentId);
+      return document ? { ...link, document } : undefined;
+    })
+    .filter((link): link is VerseSourceLinkWithDocument => Boolean(link))
+    .sort(compareSourceLinks);
+}
+
+export function getSourceReviewSummary() {
+  return getAllSourceLinks().reduce(
+    (summary, link) => {
+      summary.total += 1;
+      summary[link.reviewStatus] += 1;
+      return summary;
+    },
+    {
+      total: 0,
+      auto: 0,
+      reviewed: 0,
+      rejected: 0,
+    },
+  );
+}
+
 export function getSourceDocumentById(id: string) {
   return documentById.get(id);
 }

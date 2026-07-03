@@ -85,6 +85,12 @@ npm run collect:sources
 npm run verify:verses
 ```
 
+전체 데이터와 타입을 함께 확인합니다.
+
+```bash
+npm run verify:all
+```
+
 정당한 공식 재수집으로 기준선을 바꿔야 할 때만 다음 명령을 사용합니다.
 
 ```bash

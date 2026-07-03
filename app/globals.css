@@ -69,7 +69,9 @@ input {
 .top-nav {
   align-items: center;
   display: flex;
+  flex-wrap: wrap;
   gap: 16px;
+  justify-content: flex-end;
   color: var(--muted);
   font-size: 14px;
 }
@@ -215,6 +217,130 @@ h3 {
   background: rgba(255, 255, 255, 0.56);
   font-size: 14px;
   font-weight: 700;
+}
+
+.section-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: end;
+  margin-bottom: 22px;
+}
+
+.section-heading h1 {
+  margin-bottom: 10px;
+}
+
+.section-heading p:last-child {
+  max-width: 720px;
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.metric-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  max-width: 420px;
+}
+
+.metric-strip span,
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0 10px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.status-pill.auto,
+.status-pill.new {
+  color: var(--gold);
+}
+
+.status-pill.reviewed {
+  color: var(--accent);
+}
+
+.status-pill.rejected,
+.status-pill.needs_ocr {
+  color: #9b2c2c;
+}
+
+.review-list,
+.document-table {
+  display: grid;
+  gap: 12px;
+}
+
+.review-row,
+.document-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 0.32fr);
+  gap: 20px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.review-row-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.review-row-title strong,
+.review-row-main a,
+.document-row h2 {
+  color: var(--accent);
+}
+
+.review-row-main p,
+.document-row p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.review-meta,
+.document-row dl {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.review-meta div,
+.document-row dl div {
+  display: grid;
+  gap: 2px;
+}
+
+.review-meta dt,
+.document-row dt {
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.review-meta dd,
+.document-row dd {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.document-row h2 {
+  margin: 8px 0 0;
+  font-size: 19px;
 }
 
 .book-summary-grid {
@@ -524,9 +650,21 @@ li p {
 
   .daily-panel,
   .index-heading,
+  .section-heading,
+  .review-row,
+  .document-row,
   .note-heading,
   .note-grid {
     grid-template-columns: 1fr;
+  }
+
+  .metric-strip {
+    justify-content: stretch;
+    max-width: none;
+  }
+
+  .metric-strip span {
+    flex: 1 1 130px;
   }
 
   .related-sources-heading {

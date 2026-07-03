@@ -52,6 +52,8 @@ export default function RootLayout({
           </Link>
           <nav className="top-nav" aria-label="주요 메뉴">
             <Link href="/">전체 구절</Link>
+            <Link href="/sources">연결 검수</Link>
+            <Link href="/documents">문서 자료</Link>
             <PwaInstall />
           </nav>
         </header>

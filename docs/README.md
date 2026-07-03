@@ -44,6 +44,7 @@ docs/
 
 ```bash
 npm run review:docs
+npm run verify:docs
 ```
 
 ## 카탈로그 상태값
