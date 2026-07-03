@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { getAllSourceLinks, getSourceReviewSummary } from "@/lib/source-links";
-import { getVerseById } from "@/lib/verses";
+import SourceReviewControls from "@/app/sources/source-review-controls";
+import { getAllSourceLinks } from "@/lib/source-links";
+import { getAllSourceLinkReviewMap } from "@/lib/source-reviews";
 import type { VerseSourceLink } from "@/lib/source-types";
+import { getVerseById } from "@/lib/verses";
 
 export const metadata = {
   title: "연결 자료 검수 | 전경 개인 기록",
@@ -11,9 +13,20 @@ export const metadata = {
   },
 };
 
-export default function SourcesPage() {
-  const links = getAllSourceLinks();
-  const summary = getSourceReviewSummary();
+export const dynamic = "force-dynamic";
+
+export default async function SourcesPage() {
+  const reviewMap = await getAllSourceLinkReviewMap();
+  const links = getAllSourceLinks().map((sourceLink) => {
+    const savedReview = reviewMap.get(sourceLink.id);
+
+    return {
+      ...sourceLink,
+      reviewStatus: savedReview?.reviewStatus ?? sourceLink.reviewStatus,
+      reviewNote: savedReview?.note ?? "",
+    };
+  });
+  const summary = getReviewSummary(links);
 
   return (
     <div className="page-shell">
@@ -72,11 +85,34 @@ export default function SourcesPage() {
                   <dd>{sourceLink.matchedText}</dd>
                 </div>
               </dl>
+              <SourceReviewControls
+                initialNote={sourceLink.reviewNote}
+                initialStatus={sourceLink.reviewStatus}
+                linkId={sourceLink.id}
+              />
             </article>
           );
         })}
       </div>
     </div>
+  );
+}
+
+function getReviewSummary(
+  links: Array<VerseSourceLink & { reviewNote: string }>,
+) {
+  return links.reduce(
+    (summary, link) => {
+      summary.total += 1;
+      summary[link.reviewStatus] += 1;
+      return summary;
+    },
+    {
+      total: 0,
+      auto: 0,
+      reviewed: 0,
+      rejected: 0,
+    },
   );
 }
 

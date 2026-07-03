@@ -31,6 +31,10 @@ export function getAllSourceLinks() {
     .sort(compareSourceLinks);
 }
 
+export function getSourceLinkById(id: string) {
+  return getAllSourceLinks().find((link) => link.id === id);
+}
+
 export function getSourceReviewSummary() {
   return getAllSourceLinks().reduce(
     (summary, link) => {

@@ -338,6 +338,73 @@ h3 {
   font-size: 14px;
 }
 
+.review-controls {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: end;
+  padding-top: 14px;
+  border-top: 1px solid rgba(222, 212, 197, 0.72);
+}
+
+.review-button-group {
+  display: inline-grid;
+  grid-template-columns: repeat(3, 64px);
+  gap: 6px;
+}
+
+.review-button-group button {
+  min-height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--muted);
+  background: #fffdf9;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.review-button-group button.active {
+  border-color: rgba(17, 100, 102, 0.48);
+  color: var(--accent);
+  background: rgba(17, 100, 102, 0.08);
+}
+
+.review-note-field {
+  display: grid;
+  gap: 6px;
+}
+
+.review-note-field span,
+.review-save-state {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.review-note-field textarea {
+  width: 100%;
+  min-height: 72px;
+  resize: vertical;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 10px;
+  color: var(--text);
+  background: #fffdf9;
+  font-size: 14px;
+}
+
+.review-note-field textarea:focus {
+  outline: 3px solid rgba(17, 100, 102, 0.18);
+  border-color: var(--accent);
+}
+
+.review-save-state {
+  min-width: 88px;
+  text-align: right;
+}
+
 .document-row h2 {
   margin: 8px 0 0;
   font-size: 19px;
@@ -653,9 +720,18 @@ li p {
   .section-heading,
   .review-row,
   .document-row,
+  .review-controls,
   .note-heading,
   .note-grid {
     grid-template-columns: 1fr;
+  }
+
+  .review-button-group {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .review-save-state {
+    text-align: left;
   }
 
   .metric-strip {
