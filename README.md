@@ -72,8 +72,20 @@ npm run collect:sources
 
 ## 검색 노출 차단
 
-초기 요청대로 로그인 없이 `robots.txt`, HTML metadata, `X-Robots-Tag`만 적용했습니다.
-완전한 비공개가 필요하면 이후 로그인 또는 Basic Auth를 추가해야 합니다.
+`robots.txt`, HTML metadata, `X-Robots-Tag`를 적용했고, 운영 환경에서는 Basic Auth도 적용합니다.
+
+배포 환경에는 다음 환경변수를 설정해야 합니다.
+
+```bash
+BASIC_AUTH_USER=원하는_아이디
+BASIC_AUTH_PASSWORD=긴_비밀번호
+```
+
+운영 환경에서 위 값이 없으면 사이트는 내용을 노출하지 않고 503으로 닫힙니다. 로컬 개발 환경에서는 값이 없어도 개발 편의를 위해 통과합니다. 로컬에서 명시적으로 인증을 끄고 싶을 때만 `.env.local`에 다음 값을 사용할 수 있습니다.
+
+```bash
+BASIC_AUTH_DISABLED=true
+```
 
 ## 원문 불변 규칙
 

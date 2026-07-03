@@ -1,4 +1,5 @@
 .next/
+.goal-harness/
 node_modules/
 node_modules_broken/
 node_modules_partial*/
