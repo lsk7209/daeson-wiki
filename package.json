@@ -12,6 +12,7 @@
     "verify:sources": "node scripts/verify-source-links.mjs",
     "verify:docs": "node scripts/verify-docs-catalog.mjs",
     "verify:all": "npm run verify:verses && npm run verify:sources && npm run verify:docs && npm run type-check",
+    "db:migrate": "node scripts/migrate-turso.mjs",
     "collect:sources": "node scripts/collect-source-links.mjs",
     "review:docs": "python scripts/review-docs.py",
     "scrape:dry-run": "node scripts/scrape-daesoon.mjs --dry-run",
@@ -26,6 +27,7 @@
   "license": "UNLICENSED",
   "type": "module",
   "dependencies": {
+    "@libsql/client": "^0.17.4",
     "next": "^16.2.10",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"

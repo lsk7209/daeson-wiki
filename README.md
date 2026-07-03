@@ -87,6 +87,30 @@ BASIC_AUTH_PASSWORD=긴_비밀번호
 BASIC_AUTH_DISABLED=true
 ```
 
+## Turso DB
+
+개인 기록과 검수 상태는 Turso에 저장할 수 있습니다. 전경 원문 `data/verses.json`은 계속 불변 데이터로 두고, DB에는 개인 레이어만 저장합니다.
+
+`.env.local`에 다음 값을 설정합니다.
+
+```bash
+TURSO_DATABASE_URL=libsql://...
+TURSO_AUTH_TOKEN=...
+```
+
+초기 테이블을 생성합니다.
+
+```bash
+npm run db:migrate
+```
+
+현재 마이그레이션은 다음 테이블을 만듭니다.
+
+- `verse_notes`: 구절별 나의 첨언, 낙서장
+- `source_link_reviews`: 자료 연결 검수 상태
+- `daily_delivery_log`: 향후 1일 1구절 푸시 발송 기록
+- `app_settings`: 개인 설정 저장소
+
 ## 원문 불변 규칙
 
 전경 원문은 절대 수정하지 않습니다. `data/verses.json`의 `text`는 공식 사이트에서 수집한 브라우저 표시 기준 원문이며, 볼드/링크/클릭 같은 표시는 원문 데이터를 바꾸지 않고 별도 화면 레이어에서 처리합니다.
