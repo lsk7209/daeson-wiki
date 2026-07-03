@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="전경 기록">
+  <rect width="512" height="512" fill="#f7f3ea"/>
+  <rect x="86" y="64" width="340" height="384" rx="22" fill="#ffffff" stroke="#116466" stroke-width="22"/>
+  <path d="M150 158h212M150 220h212M150 282h160" fill="none" stroke="#a36f14" stroke-width="24" stroke-linecap="round"/>
+  <path d="M166 370h180" fill="none" stroke="#116466" stroke-width="30" stroke-linecap="round"/>
+</svg>

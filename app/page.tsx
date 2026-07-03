@@ -1,18 +1,14 @@
 import Link from "next/link";
-import { getBookGroups, getDailyVerse, getVersePreview } from "@/lib/verses";
+import {
+  getBookSummaries,
+  getDailyVerse,
+  getVersePreview,
+} from "@/lib/verses";
 
 export default function HomePage() {
   const today = getDailyVerse();
-  const groups = getBookGroups();
-  const total = Array.from(groups.values()).reduce((sum, chapters) => {
-    return (
-      sum +
-      Array.from(chapters.values()).reduce(
-        (chapterSum, verses) => chapterSum + verses.length,
-        0,
-      )
-    );
-  }, 0);
+  const summaries = getBookSummaries();
+  const total = summaries.reduce((sum, summary) => sum + summary.verseCount, 0);
 
   return (
     <div className="page-shell">
@@ -49,40 +45,24 @@ export default function HomePage() {
         <span className="count-badge">{total.toLocaleString("ko-KR")}구절</span>
       </section>
 
-      <div className="book-list">
-        {Array.from(groups.entries()).map(([book, chapters]) => {
-          const chapterEntries = Array.from(chapters.entries());
-
-          if (chapterEntries.length === 0) {
-            return null;
-          }
-
-          return (
-            <section className="book-section" key={book}>
-              <h3>{book}</h3>
-              <div className="chapter-grid">
-                {chapterEntries.map(([chapter, chapterVerses]) => (
-                  <article className="chapter-card" key={`${book}-${chapter}`}>
-                    <div className="chapter-title">
-                      <strong>{chapter}장</strong>
-                      <span>{chapterVerses.length}절</span>
-                    </div>
-                    <ol>
-                      {chapterVerses.map((verse) => (
-                        <li key={verse.id}>
-                          <Link href={`/verses/${verse.id}`}>
-                            <span>{verse.verse}절</span>
-                            <p>{getVersePreview(verse.text, 86)}</p>
-                          </Link>
-                        </li>
-                      ))}
-                    </ol>
-                  </article>
-                ))}
-              </div>
-            </section>
-          );
-        })}
+      <div className="book-summary-grid">
+        {summaries.map((summary) => (
+          <Link
+            className="book-summary-card"
+            href={`/books/${summary.slug}`}
+            key={summary.book}
+          >
+            <span>{summary.book}</span>
+            <strong>
+              {summary.chapterCount}장 · {summary.verseCount}절
+            </strong>
+            <p>
+              {summary.firstVerse
+                ? getVersePreview(summary.firstVerse.text, 88)
+                : "수집된 구절이 없습니다."}
+            </p>
+          </Link>
+        ))}
       </div>
     </div>
   );

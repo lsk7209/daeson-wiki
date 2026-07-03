@@ -1,10 +1,22 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
+import PwaInstall from "@/app/pwa-install";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "전경 개인 기록",
   description: "개인용 전경 구절 기록장",
+  manifest: "/manifest.webmanifest",
+  applicationName: "전경 기록",
+  appleWebApp: {
+    capable: true,
+    title: "전경 기록",
+    statusBarStyle: "default",
+  },
+  icons: {
+    icon: "/icon.svg",
+    apple: "/icon.svg",
+  },
   robots: {
     index: false,
     follow: false,
@@ -40,6 +52,7 @@ export default function RootLayout({
           </Link>
           <nav className="top-nav" aria-label="주요 메뉴">
             <Link href="/">전체 구절</Link>
+            <PwaInstall />
           </nav>
         </header>
         <main>{children}</main>

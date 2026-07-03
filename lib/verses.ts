@@ -1,7 +1,7 @@
 import versesRaw from "@/data/verses.json";
 import type { JeongyeongBook, JeongyeongVerse } from "@/lib/verse-types";
 
-export const bookOrder: JeongyeongBook[] = [
+export const bookOrder = [
   "행록",
   "공사",
   "교운",
@@ -9,25 +9,50 @@ export const bookOrder: JeongyeongBook[] = [
   "권지",
   "제생",
   "예시",
-];
+] as const satisfies readonly JeongyeongBook[];
 
-export const verses = versesRaw as JeongyeongVerse[];
+export const bookSlugByName = {
+  행록: "haengrok",
+  공사: "gongsa",
+  교운: "gyoun",
+  교법: "gyobeop",
+  권지: "gwonji",
+  제생: "jesaeng",
+  예시: "yesi",
+} as const satisfies Record<JeongyeongBook, string>;
+
+const bookBySlug = new Map<string, JeongyeongBook>(
+  Object.entries(bookSlugByName).map(([book, slug]) => [
+    slug,
+    book as JeongyeongBook,
+  ]),
+);
+
+const verses = [...(versesRaw as JeongyeongVerse[])].sort(compareVerses);
+const verseById = new Map(verses.map((verse) => [verse.id, verse]));
+const verseIndexById = new Map(
+  verses.map((verse, index) => [verse.id, index]),
+);
+const groups = buildBookGroups();
+const summaries = buildBookSummaries();
 
 export function getAllVerses() {
-  return [...verses].sort(compareVerses);
+  return verses;
 }
 
 export function getVerseById(id: string) {
-  return verses.find((verse) => verse.id === id);
+  return verseById.get(id);
 }
 
 export function getAdjacentVerses(id: string) {
-  const sorted = getAllVerses();
-  const index = sorted.findIndex((verse) => verse.id === id);
+  const index = verseIndexById.get(id);
 
   return {
-    previous: index > 0 ? sorted[index - 1] : undefined,
-    next: index >= 0 && index < sorted.length - 1 ? sorted[index + 1] : undefined,
+    previous: index !== undefined && index > 0 ? verses[index - 1] : undefined,
+    next:
+      index !== undefined && index < verses.length - 1
+        ? verses[index + 1]
+        : undefined,
   };
 }
 
@@ -42,7 +67,7 @@ export function getDailyVerse(date = new Date()) {
   const dayOffset = Math.floor((utcDay - baseDay) / 86_400_000);
   const index = modulo(dayOffset, verses.length);
 
-  return getAllVerses()[index];
+  return verses[index];
 }
 
 export function getVersePreview(text: string, length = 96) {
@@ -54,24 +79,77 @@ export function getVersePreview(text: string, length = 96) {
 }
 
 export function getBookGroups() {
-  const groups = new Map<
+  return groups;
+}
+
+export function getBookSummaries() {
+  return summaries;
+}
+
+export function getBookBySlug(slug: string) {
+  return bookBySlug.get(slug);
+}
+
+export function getBookSlug(book: JeongyeongBook) {
+  return bookSlugByName[book];
+}
+
+export function getVersesByBook(book: JeongyeongBook) {
+  const chapters = groups.get(book);
+
+  if (!chapters) {
+    return [];
+  }
+
+  return Array.from(chapters.values()).flat();
+}
+
+export function getBookChapterEntries(book: JeongyeongBook) {
+  return Array.from(groups.get(book)?.entries() ?? []);
+}
+
+function buildBookGroups() {
+  const nextGroups = new Map<
     JeongyeongBook,
     Map<number, JeongyeongVerse[]>
   >();
 
   for (const book of bookOrder) {
-    groups.set(book, new Map());
+    nextGroups.set(book, new Map());
   }
 
-  for (const verse of getAllVerses()) {
-    const chapters = groups.get(verse.book) ?? new Map<number, JeongyeongVerse[]>();
+  for (const verse of verses) {
+    const chapters = nextGroups.get(verse.book) ?? new Map<number, JeongyeongVerse[]>();
     const chapter = chapters.get(verse.chapter) ?? [];
     chapter.push(verse);
     chapters.set(verse.chapter, chapter);
-    groups.set(verse.book, chapters);
+    nextGroups.set(verse.book, chapters);
   }
 
-  return groups;
+  return nextGroups;
+}
+
+function buildBookSummaries() {
+  return bookOrder.map((book) => {
+    const chapters = groups.get(book) ?? new Map<number, JeongyeongVerse[]>();
+    const chapterEntries = Array.from(chapters.entries());
+    const firstVerse = chapterEntries.at(0)?.[1].at(0);
+    const lastChapter = chapterEntries.at(-1)?.[1];
+    const lastVerse = lastChapter?.at(-1);
+    const verseCount = chapterEntries.reduce(
+      (sum, [, chapterVerses]) => sum + chapterVerses.length,
+      0,
+    );
+
+    return {
+      book,
+      slug: getBookSlug(book),
+      chapterCount: chapterEntries.length,
+      verseCount,
+      firstVerse,
+      lastVerse,
+    };
+  });
 }
 
 function compareVerses(a: JeongyeongVerse, b: JeongyeongVerse) {

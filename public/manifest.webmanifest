@@ -1,0 +1,26 @@
+{
+  "name": "전경 개인 기록",
+  "short_name": "전경 기록",
+  "description": "개인용 전경 구절 기록장",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f7f3ea",
+  "theme_color": "#f7f3ea",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "오늘의 전경",
+      "url": "/",
+      "description": "오늘의 전경 구절"
+    }
+  ]
+}
