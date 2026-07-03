@@ -13,6 +13,7 @@
     "verify:docs": "node scripts/verify-docs-catalog.mjs",
     "verify:all": "npm run verify:verses && npm run verify:sources && npm run verify:docs && npm run type-check",
     "db:migrate": "node scripts/migrate-turso.mjs",
+    "push:keys": "node scripts/generate-vapid-keys.mjs",
     "collect:sources": "node scripts/collect-source-links.mjs",
     "review:docs": "python scripts/review-docs.py",
     "scrape:dry-run": "node scripts/scrape-daesoon.mjs --dry-run",

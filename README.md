@@ -110,6 +110,24 @@ npm run db:migrate
 - `source_link_reviews`: 자료 연결 검수 상태
 - `daily_delivery_log`: 향후 1일 1구절 푸시 발송 기록
 - `app_settings`: 개인 설정 저장소
+- `push_subscriptions`: 브라우저 푸시 구독 정보
+
+## 푸시 알림 준비
+
+브라우저 푸시 구독 저장에는 VAPID 키가 필요합니다.
+
+키는 로컬에서 생성할 수 있습니다.
+
+```bash
+npm run push:keys
+```
+
+```bash
+NEXT_PUBLIC_VAPID_PUBLIC_KEY=브라우저에_노출되는_public_key
+VAPID_PRIVATE_KEY=서버에서만_쓰는_private_key
+```
+
+현재 단계에서는 구독 정보를 Turso에 저장하고 해제하는 기반만 제공합니다. 실제 매일 발송 작업은 추후 `push_subscriptions`와 `daily_delivery_log`를 사용해 별도 발송 스크립트로 연결합니다.
 
 ## 원문 불변 규칙
 
