@@ -56,6 +56,12 @@ export default async function VersePage({ params }: VersePageProps) {
   const officialCommentarySources = relatedSources.filter(
     isOfficialCommentarySource,
   );
+  const officialCommentarySourceIds = new Set(
+    officialCommentarySources.map((sourceLink) => sourceLink.id),
+  );
+  const supplementalSources = relatedSources.filter(
+    (sourceLink) => !officialCommentarySourceIds.has(sourceLink.id),
+  );
   const hanjaAnnotations = hasHanja(verse.text)
     ? getHanjaAnnotations(verse.text)
     : [];
@@ -155,17 +161,17 @@ export default async function VersePage({ params }: VersePageProps) {
 
       </section>
 
-      {relatedSources.length > 0 ? (
+      {supplementalSources.length > 0 ? (
         <section className="related-sources">
           <div className="related-sources-heading">
             <div>
               <p className="eyebrow">연결 자료</p>
               <h2>공식/관련 자료</h2>
             </div>
-            <span>{relatedSources.length}건</span>
+            <span>{supplementalSources.length}건</span>
           </div>
           <div className="related-source-list">
-            {relatedSources.map((sourceLink) => (
+            {supplementalSources.map((sourceLink) => (
               <div className="related-source-row" key={sourceLink.id}>
                 <a href={sourceLink.document.url} rel="noreferrer">
                   <strong>{sourceLink.document.title}</strong>

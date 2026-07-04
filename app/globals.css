@@ -33,7 +33,8 @@ body {
     "Apple SD Gothic Neo",
     "Malgun Gothic",
     sans-serif;
-  line-height: 1.6;
+  font-size: 16px;
+  line-height: 1.65;
 }
 
 a {
@@ -122,21 +123,22 @@ p {
 
 h1 {
   margin-bottom: 16px;
-  font-size: clamp(30px, 4vw, 48px);
+  font-size: 46px;
   line-height: 1.18;
   letter-spacing: 0;
 }
 
 h2 {
   margin-bottom: 10px;
-  font-size: 26px;
+  font-size: 28px;
   line-height: 1.25;
   letter-spacing: 0;
 }
 
 h3 {
   margin-bottom: 16px;
-  font-size: 22px;
+  font-size: 21px;
+  line-height: 1.3;
   letter-spacing: 0;
 }
 
@@ -548,8 +550,8 @@ li p {
 
 .verse-text {
   margin-bottom: 24px;
-  font-size: 22px;
-  line-height: 1.9;
+  font-size: 21px;
+  line-height: 1.95;
   word-break: keep-all;
 }
 
@@ -627,8 +629,8 @@ li p {
 .source-commentary-empty {
   margin-bottom: 0;
   color: var(--muted);
-  font-size: 14px;
-  line-height: 1.75;
+  font-size: 15px;
+  line-height: 1.8;
 }
 
 .hanja-section h3 {
@@ -656,8 +658,8 @@ li p {
 .hanja-long-note {
   margin-bottom: 0;
   color: var(--muted);
-  font-size: 14px;
-  line-height: 1.75;
+  font-size: 15px;
+  line-height: 1.8;
 }
 
 .hanja-heading {
@@ -713,7 +715,8 @@ li p {
 .hanja-list dd {
   margin: 0;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 15px;
+  line-height: 1.75;
 }
 
 .related-sources {
@@ -771,7 +774,8 @@ li p {
 .related-source-row p {
   margin-bottom: 0;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 15px;
+  line-height: 1.75;
 }
 
 .note-panel {
@@ -825,6 +829,8 @@ li p {
   padding: 14px;
   color: var(--text);
   background: #fffdf9;
+  font-size: 16px;
+  line-height: 1.65;
 }
 
 .note-field textarea:focus {
@@ -918,11 +924,49 @@ li p {
   }
 
   h1 {
-    font-size: 32px;
+    font-size: 34px;
+    line-height: 1.22;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  h3 {
+    font-size: 20px;
   }
 
   .verse-text {
     font-size: 19px;
+    line-height: 1.9;
+  }
+
+  .source-commentary-row strong,
+  .related-source-row strong,
+  .hanja-list-title {
+    font-size: 16px;
+  }
+
+  .source-commentary-row p,
+  .source-commentary-empty,
+  .related-source-row p,
+  .hanja-long-note,
+  .hanja-list dd {
+    font-size: 15px;
+  }
+
+  .hanja-original-text,
+  .hanja-reading-text {
+    font-size: 17px;
+    line-height: 1.85;
+  }
+
+  .hanja-list dt span {
+    font-size: 18px;
+  }
+
+  .hanja-list dt strong {
+    font-size: 14px;
   }
 
   .verse-nav {
@@ -931,5 +975,31 @@ li p {
 
   .verse-nav a {
     max-width: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .page-shell {
+    width: min(100% - 20px, 1120px);
+  }
+
+  .daily-panel,
+  .verse-detail,
+  .commentary-panel,
+  .related-sources,
+  .note-field {
+    padding: 18px;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  .verse-text {
+    font-size: 18px;
   }
 }
