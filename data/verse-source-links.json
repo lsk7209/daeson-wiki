@@ -308,6 +308,17 @@
     "createdAt": "2026-07-03T07:57:53.329Z"
   },
   {
+    "id": "webzine-daesoon-hansi-213-haengrok-2-6",
+    "verseId": "haengrok-2-6",
+    "sourceDocumentId": "webzine-daesoon-hansi-213",
+    "relationType": "direct_interpretation",
+    "confidence": "official_direct",
+    "reviewStatus": "auto",
+    "matchedText": "행록 2장 6절",
+    "evidenceSnippet": "『전경』 행록 2장 6절의 한시를 김병연의 금강산시와 비교하며, 보습(步拾), 청산개골여, 기경객/기려객 등의 문맥과 대순진리적 관점의 해석 필요성을 설명한다.",
+    "createdAt": "2026-07-04T06:25:48.948Z"
+  },
+  {
     "id": "webzine-dirc-article-115-haengrok-3-16",
     "verseId": "haengrok-3-16",
     "sourceDocumentId": "webzine-dirc-article-115",

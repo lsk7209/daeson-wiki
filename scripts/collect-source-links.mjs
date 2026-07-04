@@ -45,13 +45,45 @@ async function main() {
 
       for (const { document, text } of collectedDocuments) {
         const directVerseIds = new Set(
-          extractVerseReferences(document.title)
-            .map((reference) => reference.verseId)
-            .filter((verseId) => knownVerseIds.has(verseId)),
+          [
+            ...(seed.directVerseIds ?? []),
+            ...extractVerseReferences(document.title)
+              .map((reference) => reference.verseId)
+              .filter((verseId) => knownVerseIds.has(verseId)),
+          ].filter((verseId) => knownVerseIds.has(verseId)),
         );
         const references = extractVerseReferences(`${document.title} ${text}`);
+        const referenceByVerseId = new Map(
+          references.map((reference) => [reference.verseId, reference]),
+        );
 
         documents.push(document);
+
+        for (const verseId of directVerseIds) {
+          if (referenceByVerseId.has(verseId)) {
+            continue;
+          }
+
+          const verse = verses.find((item) => item.id === verseId);
+          const matchedText = verse?.title ?? verseId;
+          const link = {
+            id: `${document.id}-${verseId}`,
+            verseId,
+            sourceDocumentId: document.id,
+            relationType: "direct_interpretation",
+            confidence: "official_direct",
+            reviewStatus: "auto",
+            matchedText,
+            evidenceSnippet: makeSourceSnippet(document.title, text),
+            createdAt: collectedAt,
+          };
+          const key = `${document.id}:${verseId}`;
+          const existing = linkByKey.get(key);
+
+          if (!existing || shouldReplaceLink(existing, link)) {
+            linkByKey.set(key, link);
+          }
+        }
 
         for (const reference of references) {
           if (!knownVerseIds.has(reference.verseId)) {
@@ -650,6 +682,10 @@ function makeSnippet(fullText, index, matchedText) {
   const suffix = end < fullText.length ? "..." : "";
 
   return `${prefix}${fullText.slice(start, end).trim()}${suffix}`;
+}
+
+function makeSourceSnippet(title, text) {
+  return cleanText(`${title} ${text}`).slice(0, 260);
 }
 
 function makeTermGlossLinks({
