@@ -153,13 +153,6 @@ export default async function VersePage({ params }: VersePageProps) {
           </section>
         ) : null}
 
-        <section className="commentary-draft">
-          <h3>해설 초안</h3>
-          <p>
-            해설은 아직 작성되지 않았습니다. 추후 직접 작성하거나 Turso DB에
-            저장하는 구조로 확장할 수 있습니다.
-          </p>
-        </section>
       </section>
 
       {relatedSources.length > 0 ? (

@@ -571,8 +571,7 @@ li p {
 }
 
 .source-commentary-section,
-.hanja-section,
-.commentary-draft {
+.hanja-section {
   display: grid;
   gap: 12px;
   padding-top: 18px;
@@ -632,8 +631,7 @@ li p {
   line-height: 1.75;
 }
 
-.hanja-section h3,
-.commentary-draft h3 {
+.hanja-section h3 {
   margin-bottom: 0;
 }
 
@@ -716,11 +714,6 @@ li p {
   margin: 0;
   color: var(--muted);
   font-size: 14px;
-}
-
-.commentary-draft p:last-child {
-  margin-bottom: 0;
-  color: var(--muted);
 }
 
 .related-sources {
