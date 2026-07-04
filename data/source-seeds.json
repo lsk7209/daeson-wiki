@@ -112,5 +112,18 @@
     "category": "도헌",
     "title": "도헌",
     "url": "http://gyomubu.or.kr/bbs/content.php?co_id=002_301070"
+  },
+  {
+    "id": "daesoon-dictionary-bongraesan",
+    "sourceName": "대순진리회 여주본부도장",
+    "sourceSite": "www.daesoon.org",
+    "sourceType": "official_dictionary",
+    "category": "전경용어사전",
+    "title": "봉래산(蓬萊山)",
+    "url": "http://www.daesoon.org/about/dictionary.php?idx=19",
+    "termMatches": [
+      "봉래산",
+      "蓬萊山"
+    ]
   }
 ]

@@ -88,6 +88,22 @@ async function main() {
           }
         }
 
+        for (const link of makeTermGlossLinks({
+          seed,
+          document,
+          sourceText: text,
+          verses,
+          knownVerseIds,
+          collectedAt,
+        })) {
+          const key = `${link.sourceDocumentId}:${link.verseId}`;
+          const existing = linkByKey.get(key);
+
+          if (!existing || shouldReplaceLink(existing, link)) {
+            linkByKey.set(key, link);
+          }
+        }
+
         console.log(`${document.title} -> ${references.length} references scanned`);
       }
     } catch (error) {
@@ -634,6 +650,75 @@ function makeSnippet(fullText, index, matchedText) {
   const suffix = end < fullText.length ? "..." : "";
 
   return `${prefix}${fullText.slice(start, end).trim()}${suffix}`;
+}
+
+function makeTermGlossLinks({
+  seed,
+  document,
+  sourceText,
+  verses,
+  knownVerseIds,
+  collectedAt,
+}) {
+  const terms = (seed.termMatches ?? [])
+    .map((term) => cleanText(term))
+    .filter(Boolean);
+
+  if (terms.length === 0) {
+    return [];
+  }
+
+  const sourceMatch = findFirstTermMatch(`${document.title} ${sourceText}`, terms);
+  const sourceSnippet = sourceMatch
+    ? makeSnippet(
+        `${document.title} ${sourceText}`,
+        sourceMatch.index,
+        sourceMatch.term,
+      )
+    : cleanText(sourceText).slice(0, 220);
+  const links = [];
+
+  for (const verse of verses) {
+    if (!knownVerseIds.has(verse.id)) {
+      continue;
+    }
+
+    const verseMatch = findFirstTermMatch(`${verse.title} ${verse.text}`, terms);
+
+    if (!verseMatch) {
+      continue;
+    }
+
+    links.push({
+      id: `${document.id}-${verse.id}-term`,
+      verseId: verse.id,
+      sourceDocumentId: document.id,
+      relationType: "term_gloss",
+      confidence: "official_term",
+      reviewStatus: "auto",
+      matchedText: verseMatch.term,
+      evidenceSnippet: sourceSnippet,
+      createdAt: collectedAt,
+    });
+  }
+
+  return links;
+}
+
+function findFirstTermMatch(text, terms) {
+  return terms.reduce((best, term) => {
+    const index = text.indexOf(term);
+
+    if (index < 0) {
+      return best;
+    }
+
+    if (!best || index < best.index) {
+      return { term, index };
+    }
+
+    return best;
+  }, undefined);
 }
 
 function shouldReplaceLink(existing, next) {

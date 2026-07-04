@@ -603,5 +603,16 @@
     "url": "https://webzine.dirc.kr/article/145",
     "fetchedAt": "2026-07-03T07:57:53.329Z",
     "copyrightNote": "metadata_snippet_only"
+  },
+  {
+    "id": "daesoon-dictionary-bongraesan",
+    "sourceName": "대순진리회 여주본부도장",
+    "sourceSite": "www.daesoon.org",
+    "sourceType": "official_dictionary",
+    "category": "전경용어사전",
+    "title": "봉래산(蓬萊山)",
+    "url": "http://www.daesoon.org/about/dictionary.php?idx=19",
+    "fetchedAt": "2026-07-04T06:02:15.708Z",
+    "copyrightNote": "metadata_snippet_only"
   }
 ]
