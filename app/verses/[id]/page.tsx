@@ -8,7 +8,10 @@ import {
   shouldUseLongHanjaMode,
 } from "@/lib/hanja";
 import { getSourceLinksForVerse } from "@/lib/source-links";
-import type { VerseSourceLink } from "@/lib/source-types";
+import type {
+  VerseSourceLink,
+  VerseSourceLinkWithDocument,
+} from "@/lib/source-types";
 import {
   getAdjacentVerses,
   getAllVerses,
@@ -50,6 +53,9 @@ export default async function VersePage({ params }: VersePageProps) {
 
   const adjacent = getAdjacentVerses(verse.id);
   const relatedSources = getSourceLinksForVerse(verse.id);
+  const officialCommentarySources = relatedSources.filter(
+    isOfficialCommentarySource,
+  );
   const hanjaAnnotations = hasHanja(verse.text)
     ? getHanjaAnnotations(verse.text)
     : [];
@@ -85,6 +91,35 @@ export default async function VersePage({ params }: VersePageProps) {
           <h2>해설 영역</h2>
         </header>
 
+        <section className="source-commentary-section">
+          <div className="source-commentary-heading">
+            <h3>공식 자료 기반 해설</h3>
+            <span>우선 검토</span>
+          </div>
+          {officialCommentarySources.length > 0 ? (
+            <div className="source-commentary-list">
+              {officialCommentarySources.map((sourceLink) => (
+                <article className="source-commentary-row" key={sourceLink.id}>
+                  <a href={sourceLink.document.url} rel="noreferrer">
+                    <strong>{sourceLink.document.title}</strong>
+                    <span>
+                      {sourceLink.document.sourceName} ·{" "}
+                      {getRelationLabel(sourceLink.relationType)}
+                    </span>
+                  </a>
+                  <p>{sourceLink.evidenceSnippet}</p>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <p className="source-commentary-empty">
+              수집된 대순회보, 교무부, 대순종교문화연구소 자료 중 이 구절의
+              직접 해설이나 용어 해설은 아직 연결되지 않았습니다. 아래 한자
+              풀이는 공식 근거 해설이 아니라 원문 보조 정보입니다.
+            </p>
+          )}
+        </section>
+
         {hanjaAnnotations.length > 0 ? (
           <section className="hanja-section">
             <h3>한자읽기</h3>
@@ -103,7 +138,7 @@ export default async function VersePage({ params }: VersePageProps) {
 
             {hanjaExplanations.length > 0 ? (
               <dl className="hanja-list">
-                <dt className="hanja-list-title">한자해석</dt>
+                <dt className="hanja-list-title">기초 한자해설</dt>
                 {hanjaExplanations.map((annotation) => (
                   <div key={annotation.id}>
                     <dt>
@@ -183,6 +218,17 @@ function getRelationLabel(relationType: VerseSourceLink["relationType"]) {
   }
 
   return "관련 인용";
+}
+
+function isOfficialCommentarySource(sourceLink: VerseSourceLinkWithDocument) {
+  if (sourceLink.reviewStatus === "rejected") {
+    return false;
+  }
+
+  return (
+    sourceLink.relationType === "direct_interpretation" ||
+    sourceLink.relationType === "term_gloss"
+  );
 }
 
 function getDisplayHanjaMeaning(annotation: {

@@ -570,12 +570,66 @@ li p {
   margin-bottom: 0;
 }
 
+.source-commentary-section,
 .hanja-section,
 .commentary-draft {
   display: grid;
   gap: 12px;
   padding-top: 18px;
   border-top: 1px solid rgba(222, 212, 197, 0.72);
+}
+
+.source-commentary-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.source-commentary-heading h3 {
+  margin-bottom: 0;
+}
+
+.source-commentary-heading span {
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.source-commentary-list {
+  display: grid;
+  gap: 0;
+}
+
+.source-commentary-row {
+  display: grid;
+  gap: 8px;
+  padding: 14px 0;
+  border-top: 1px solid rgba(222, 212, 197, 0.72);
+}
+
+.source-commentary-row a {
+  display: grid;
+  gap: 4px;
+}
+
+.source-commentary-row strong {
+  color: var(--accent);
+  font-size: 17px;
+}
+
+.source-commentary-row span {
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.source-commentary-row p,
+.source-commentary-empty {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.75;
 }
 
 .hanja-section h3,
