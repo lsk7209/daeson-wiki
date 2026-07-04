@@ -1,7 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import NotePad from "@/app/verses/[id]/note-pad";
-import { getHanjaAnnotations, hasHanja } from "@/lib/hanja";
+import {
+  getHanjaAnnotations,
+  hasHanja,
+  shouldUseLongHanjaMode,
+} from "@/lib/hanja";
 import { getSourceLinksForVerse } from "@/lib/source-links";
 import type { VerseSourceLink } from "@/lib/source-types";
 import {
@@ -54,6 +58,10 @@ export default async function VersePage({ params }: VersePageProps) {
   const hanjaReadingText = hanjaAnnotations
     .map((annotation) => annotation.reading)
     .join(" ");
+  const isLongHanjaPassage = shouldUseLongHanjaMode(hanjaAnnotations);
+  const hanjaExplanations = isLongHanjaPassage
+    ? []
+    : hanjaAnnotations.filter(hasUsefulHanjaMeaning);
 
   return (
     <div className="page-shell verse-layout">
@@ -81,19 +89,25 @@ export default async function VersePage({ params }: VersePageProps) {
         </header>
 
         {hanjaAnnotations.length > 0 ? (
-          <>
-            <section className="hanja-section">
-              <h3>한자읽기</h3>
-              <div className="hanja-reading-pair">
-                <p className="hanja-original-text">{hanjaOriginalText}</p>
+          <section className="hanja-section">
+            <h3>한자읽기</h3>
+            <div className="hanja-reading-pair">
+              <p className="hanja-original-text">{hanjaOriginalText}</p>
+              {isLongHanjaPassage ? (
+                <p className="hanja-long-note">
+                  긴 한문은 구절별 자동 풀이보다 문장 전체의 흐름이 중요하므로
+                  원문 단위로 보존했습니다. 포유문, 각도문 같은 글은 문단 단위
+                  해설로 별도 정리하는 편이 적합합니다.
+                </p>
+              ) : (
                 <p className="hanja-reading-text">{hanjaReadingText}</p>
-              </div>
-            </section>
+              )}
+            </div>
 
-            <section className="hanja-section">
-              <h3>한자해석</h3>
+            {hanjaExplanations.length > 0 ? (
               <dl className="hanja-list">
-                {hanjaAnnotations.map((annotation) => (
+                <dt className="hanja-list-title">한자해석</dt>
+                {hanjaExplanations.map((annotation) => (
                   <div key={annotation.id}>
                     <dt>
                       <span>{annotation.hanja}</span>
@@ -103,8 +117,8 @@ export default async function VersePage({ params }: VersePageProps) {
                   </div>
                 ))}
               </dl>
-            </section>
-          </>
+            ) : null}
+          </section>
         ) : null}
 
         <section className="commentary-draft">
@@ -172,4 +186,13 @@ function getRelationLabel(relationType: VerseSourceLink["relationType"]) {
   }
 
   return "관련 인용";
+}
+
+function hasUsefulHanjaMeaning(annotation: {
+  meaning: string;
+}) {
+  return !(
+    annotation.meaning.startsWith("원문에서 ") ||
+    annotation.meaning.includes("표현 단위 검수")
+  );
 }

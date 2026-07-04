@@ -1,8 +1,12 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 
-const { getHanjaAnnotations, getHanjaReadingText, hasHanja } = await import(
-  "../lib/hanja.ts"
-);
+const {
+  getHanjaAnnotations,
+  getHanjaReadingText,
+  hasHanja,
+  shouldUseLongHanjaMode,
+} = await import("../lib/hanja.ts");
 
 const sample =
   "또 어느 때 상제께서 종도들에게 步拾金剛景 靑山皆骨餘 其後騎驢客 無興但躊躇 를 외워 주시니라.";
@@ -43,9 +47,34 @@ assert.deepEqual(
     {
       hanja: "丁酉",
       reading: "정유",
-      meaning: '원문에서 "정유"로 읽는 표현입니다.',
+      meaning: "정유년을 나타내는 간지입니다.",
     },
   ],
 );
 
 console.log("Parenthetical hanja check passed.");
+
+const verses = JSON.parse(readFileSync("data/verses.json", "utf8"));
+const findVerse = (id) => {
+  const verse = verses.find((item) => item.id === id);
+  assert.ok(verse, `${id} is missing.`);
+  return verse;
+};
+
+const shortHanjaAnnotations = getHanjaAnnotations(findVerse("haengrok-2-1").text);
+assert.equal(shouldUseLongHanjaMode(shortHanjaAnnotations), false);
+assert.ok(
+  shortHanjaAnnotations.some(
+    (item) =>
+      item.hanja === "儒佛仙陰陽讖緯" &&
+      item.reading === "유불선음양참위" &&
+      item.meaning.includes("유교, 불교, 선도"),
+  ),
+);
+
+for (const id of ["gyoun-2-33", "gyoun-2-41"]) {
+  const annotations = getHanjaAnnotations(findVerse(id).text);
+  assert.equal(shouldUseLongHanjaMode(annotations), true, `${id} should use long mode.`);
+}
+
+console.log("Long hanja mode check passed for 포유문 and 각도문.");

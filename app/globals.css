@@ -601,6 +601,13 @@ li p {
   font-weight: 700;
 }
 
+.hanja-long-note {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.75;
+}
+
 .hanja-heading {
   display: flex;
   align-items: end;
@@ -618,6 +625,12 @@ li p {
   display: grid;
   gap: 10px;
   margin: 0;
+}
+
+.hanja-list-title {
+  color: var(--text);
+  font-size: 17px;
+  font-weight: 800;
 }
 
 .hanja-list div {

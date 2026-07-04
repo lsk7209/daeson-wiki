@@ -135,6 +135,14 @@ const knownHanjaTerms: Record<
     meaning: string;
   }
 > = {
+  丁酉: {
+    reading: "정유",
+    meaning: "정유년을 나타내는 간지입니다.",
+  },
+  儒佛仙陰陽讖緯: {
+    reading: "유불선음양참위",
+    meaning: "유교, 불교, 선도, 음양, 참위 관련 학문과 사상을 아우르는 표현입니다.",
+  },
   步拾金剛景: {
     reading: "보습금강경",
     meaning: "금강산의 경치를 걸음마다 주워 담는다",
@@ -248,6 +256,21 @@ export function getHanjaAnnotations(text: string): HanjaAnnotation[] {
   }
 
   return Array.from(annotations.values());
+}
+
+export function shouldUseLongHanjaMode(
+  annotations: Array<Pick<HanjaAnnotation, "hanja">>,
+) {
+  const totalHanjaLength = annotations.reduce(
+    (sum, annotation) => sum + annotation.hanja.length,
+    0,
+  );
+  const longestTermLength = annotations.reduce(
+    (max, annotation) => Math.max(max, annotation.hanja.length),
+    0,
+  );
+
+  return totalHanjaLength >= 80 || longestTermLength >= 48;
 }
 
 function buildAnnotation(hanja: string, reading: string): HanjaAnnotation {
