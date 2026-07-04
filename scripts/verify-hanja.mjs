@@ -63,6 +63,10 @@ const findVerse = (id) => {
 
 const shortHanjaAnnotations = getHanjaAnnotations(findVerse("haengrok-2-1").text);
 assert.equal(shouldUseLongHanjaMode(shortHanjaAnnotations), false);
+assert.deepEqual(
+  shortHanjaAnnotations.map((item) => item.hanja),
+  ["丁酉", "鄭南基", "永學", "亨烈", "贊文", "儒佛仙陰陽讖緯"],
+);
 assert.ok(
   shortHanjaAnnotations.some(
     (item) =>

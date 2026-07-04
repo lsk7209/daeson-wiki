@@ -59,9 +59,7 @@ export default async function VersePage({ params }: VersePageProps) {
     .map((annotation) => annotation.reading)
     .join(" ");
   const isLongHanjaPassage = shouldUseLongHanjaMode(hanjaAnnotations);
-  const hanjaExplanations = isLongHanjaPassage
-    ? []
-    : hanjaAnnotations.filter(hasUsefulHanjaMeaning);
+  const hanjaExplanations = isLongHanjaPassage ? [] : hanjaAnnotations;
 
   return (
     <div className="page-shell verse-layout">
@@ -113,7 +111,7 @@ export default async function VersePage({ params }: VersePageProps) {
                       <span>{annotation.hanja}</span>
                       <strong>{annotation.reading}</strong>
                     </dt>
-                    <dd>{annotation.meaning}</dd>
+                    <dd>{getDisplayHanjaMeaning(annotation)}</dd>
                   </div>
                 ))}
               </dl>
@@ -188,11 +186,17 @@ function getRelationLabel(relationType: VerseSourceLink["relationType"]) {
   return "관련 인용";
 }
 
-function hasUsefulHanjaMeaning(annotation: {
+function getDisplayHanjaMeaning(annotation: {
   meaning: string;
+  reading: string;
 }) {
-  return !(
-    annotation.meaning.startsWith("원문에서 ") ||
-    annotation.meaning.includes("표현 단위 검수")
-  );
+  if (annotation.meaning.startsWith("원문에서 ")) {
+    return `독음은 "${annotation.reading}"입니다. 뜻풀이는 문맥 단위 검수가 필요합니다.`;
+  }
+
+  if (annotation.meaning.includes("표현 단위 검수")) {
+    return "뜻풀이는 문맥 단위 검수가 필요합니다.";
+  }
+
+  return annotation.meaning;
 }
