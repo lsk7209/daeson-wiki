@@ -583,12 +583,22 @@ li p {
   margin-bottom: 0;
 }
 
+.hanja-reading-pair {
+  display: grid;
+  gap: 8px;
+}
+
+.hanja-original-text,
 .hanja-reading-text {
   margin-bottom: 0;
   color: var(--text);
   font-size: 18px;
   line-height: 1.9;
   word-break: keep-all;
+}
+
+.hanja-original-text {
+  font-weight: 700;
 }
 
 .hanja-heading {

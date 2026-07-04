@@ -1,11 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import NotePad from "@/app/verses/[id]/note-pad";
-import {
-  getHanjaAnnotations,
-  getHanjaReadingText,
-  hasHanja,
-} from "@/lib/hanja";
+import { getHanjaAnnotations, hasHanja } from "@/lib/hanja";
 import { getSourceLinksForVerse } from "@/lib/source-links";
 import type { VerseSourceLink } from "@/lib/source-types";
 import {
@@ -52,8 +48,12 @@ export default async function VersePage({ params }: VersePageProps) {
   const hanjaAnnotations = hasHanja(verse.text)
     ? getHanjaAnnotations(verse.text)
     : [];
-  const hanjaReadingText =
-    hanjaAnnotations.length > 0 ? getHanjaReadingText(verse.text) : "";
+  const hanjaOriginalText = hanjaAnnotations
+    .map((annotation) => annotation.hanja)
+    .join(" ");
+  const hanjaReadingText = hanjaAnnotations
+    .map((annotation) => annotation.reading)
+    .join(" ");
 
   return (
     <div className="page-shell verse-layout">
@@ -83,19 +83,15 @@ export default async function VersePage({ params }: VersePageProps) {
         {hanjaAnnotations.length > 0 ? (
           <>
             <section className="hanja-section">
-              <p className="eyebrow">한자읽기</p>
-              <h3>소리내어 읽기</h3>
-              <p className="hanja-reading-text">{hanjaReadingText}</p>
+              <h3>한자읽기</h3>
+              <div className="hanja-reading-pair">
+                <p className="hanja-original-text">{hanjaOriginalText}</p>
+                <p className="hanja-reading-text">{hanjaReadingText}</p>
+              </div>
             </section>
 
             <section className="hanja-section">
-              <div className="hanja-heading">
-                <div>
-                  <p className="eyebrow">한자해석</p>
-                  <h3>한자 표현 풀이</h3>
-                </div>
-                <span>{hanjaAnnotations.length}개</span>
-              </div>
+              <h3>한자해석</h3>
               <dl className="hanja-list">
                 {hanjaAnnotations.map((annotation) => (
                   <div key={annotation.id}>
