@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import NotePad from "@/app/verses/[id]/note-pad";
+import {
+  getHanjaAnnotations,
+  getHanjaReadingText,
+  hasHanja,
+} from "@/lib/hanja";
 import { getSourceLinksForVerse } from "@/lib/source-links";
 import type { VerseSourceLink } from "@/lib/source-types";
 import {
@@ -44,6 +49,11 @@ export default async function VersePage({ params }: VersePageProps) {
 
   const adjacent = getAdjacentVerses(verse.id);
   const relatedSources = getSourceLinksForVerse(verse.id);
+  const hanjaAnnotations = hasHanja(verse.text)
+    ? getHanjaAnnotations(verse.text)
+    : [];
+  const hanjaReadingText =
+    hanjaAnnotations.length > 0 ? getHanjaReadingText(verse.text) : "";
 
   return (
     <div className="page-shell verse-layout">
@@ -65,12 +75,49 @@ export default async function VersePage({ params }: VersePageProps) {
       </article>
 
       <section className="commentary-panel">
-        <p className="eyebrow">해설</p>
-        <h2>해설 초안</h2>
-        <p>
-          해설은 아직 작성되지 않았습니다. 추후 직접 작성하거나 Turso DB에
-          저장하는 구조로 확장할 수 있습니다.
-        </p>
+        <header className="commentary-heading">
+          <p className="eyebrow">해설</p>
+          <h2>해설 영역</h2>
+        </header>
+
+        {hanjaAnnotations.length > 0 ? (
+          <>
+            <section className="hanja-section">
+              <p className="eyebrow">한자읽기</p>
+              <h3>소리내어 읽기</h3>
+              <p className="hanja-reading-text">{hanjaReadingText}</p>
+            </section>
+
+            <section className="hanja-section">
+              <div className="hanja-heading">
+                <div>
+                  <p className="eyebrow">한자해석</p>
+                  <h3>한자 표현 풀이</h3>
+                </div>
+                <span>{hanjaAnnotations.length}개</span>
+              </div>
+              <dl className="hanja-list">
+                {hanjaAnnotations.map((annotation) => (
+                  <div key={annotation.id}>
+                    <dt>
+                      <span>{annotation.hanja}</span>
+                      <strong>{annotation.reading}</strong>
+                    </dt>
+                    <dd>{annotation.meaning}</dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
+          </>
+        ) : null}
+
+        <section className="commentary-draft">
+          <h3>해설 초안</h3>
+          <p>
+            해설은 아직 작성되지 않았습니다. 추후 직접 작성하거나 Turso DB에
+            저장하는 구조로 확장할 수 있습니다.
+          </p>
+        </section>
       </section>
 
       {relatedSources.length > 0 ? (
