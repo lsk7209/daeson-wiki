@@ -216,6 +216,36 @@ export function getHanjaReadingText(text: string) {
     .trim();
 }
 
+export function getOriginalHanjaText(text: string) {
+  const segments: string[] = [];
+  let current = "";
+
+  for (let index = 0; index < text.length; index += 1) {
+    const char = text[index];
+
+    if (isHanjaChar(char)) {
+      current += char;
+      continue;
+    }
+
+    if (current && isHanjaConnector(char) && hasNextHanja(text, index + 1)) {
+      current += char;
+      continue;
+    }
+
+    if (current) {
+      segments.push(current.trim());
+      current = "";
+    }
+  }
+
+  if (current) {
+    segments.push(current.trim());
+  }
+
+  return segments.filter(Boolean).join(" ");
+}
+
 export function getHanjaAnnotations(text: string): HanjaAnnotation[] {
   const annotations = new Map<string, HanjaAnnotation>();
 
@@ -355,6 +385,30 @@ function trimReadingCandidate(value: string) {
 
 function normalizeHanjaTerm(value: string) {
   return value.replace(/\s+/g, "").replace(/[，,]/g, "ㆍ").trim();
+}
+
+function isHanjaChar(value: string) {
+  return /[\u3400-\u9fff\uf900-\ufaff]/.test(value);
+}
+
+function isHanjaConnector(value: string) {
+  return /[\sㆍ·∙,，]/.test(value);
+}
+
+function hasNextHanja(text: string, startIndex: number) {
+  for (let index = startIndex; index < text.length; index += 1) {
+    const char = text[index];
+
+    if (isHanjaChar(char)) {
+      return true;
+    }
+
+    if (!isHanjaConnector(char)) {
+      return false;
+    }
+  }
+
+  return false;
 }
 
 function parseHanjaNumber(value: string) {

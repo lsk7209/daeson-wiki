@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import NotePad from "@/app/verses/[id]/note-pad";
 import {
   getHanjaAnnotations,
+  getOriginalHanjaText,
   hasHanja,
   shouldUseLongHanjaMode,
 } from "@/lib/hanja";
@@ -52,9 +53,7 @@ export default async function VersePage({ params }: VersePageProps) {
   const hanjaAnnotations = hasHanja(verse.text)
     ? getHanjaAnnotations(verse.text)
     : [];
-  const hanjaOriginalText = hanjaAnnotations
-    .map((annotation) => annotation.hanja)
-    .join(" ");
+  const hanjaOriginalText = getOriginalHanjaText(verse.text);
   const hanjaReadingText = hanjaAnnotations
     .map((annotation) => annotation.reading)
     .join(" ");

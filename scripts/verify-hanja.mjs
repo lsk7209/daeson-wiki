@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 const {
   getHanjaAnnotations,
   getHanjaReadingText,
+  getOriginalHanjaText,
   hasHanja,
   shouldUseLongHanjaMode,
 } = await import("../lib/hanja.ts");
@@ -17,6 +18,10 @@ const readingText = getHanjaReadingText(sample);
 assert.ok(
   readingText.includes("보습금강경 청산개골여 기후기려객 무흥단주저"),
   readingText,
+);
+assert.equal(
+  getOriginalHanjaText(sample),
+  "步拾金剛景 靑山皆骨餘 其後騎驢客 無興但躊躇",
 );
 
 const annotations = getHanjaAnnotations(sample);
@@ -63,6 +68,10 @@ const findVerse = (id) => {
 
 const shortHanjaAnnotations = getHanjaAnnotations(findVerse("haengrok-2-1").text);
 assert.equal(shouldUseLongHanjaMode(shortHanjaAnnotations), false);
+assert.equal(
+  getOriginalHanjaText(findVerse("haengrok-2-1").text),
+  "丁酉 鄭南基 永學 亨烈 贊文 儒佛仙陰陽讖緯",
+);
 assert.deepEqual(
   shortHanjaAnnotations.map((item) => item.hanja),
   ["丁酉", "鄭南基", "永學", "亨烈", "贊文", "儒佛仙陰陽讖緯"],
@@ -80,5 +89,12 @@ for (const id of ["gyoun-2-33", "gyoun-2-41"]) {
   const annotations = getHanjaAnnotations(findVerse(id).text);
   assert.equal(shouldUseLongHanjaMode(annotations), true, `${id} should use long mode.`);
 }
+
+assert.ok(
+  getOriginalHanjaText(findVerse("gyoun-2-33").text).startsWith("覺 道 文"),
+);
+assert.ok(
+  getOriginalHanjaText(findVerse("gyoun-2-41").text).startsWith("布 喩 文"),
+);
 
 console.log("Long hanja mode check passed for 포유문 and 각도문.");
