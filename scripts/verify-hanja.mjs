@@ -31,3 +31,21 @@ for (const [hanja, reading, meaning] of expected) {
 }
 
 console.log(`Hanja check passed for ${expected.length} standalone terms.`);
+
+const parenthetical = getHanjaAnnotations("정유(丁酉)에 기록되었다.");
+assert.deepEqual(
+  parenthetical.map((item) => ({
+    hanja: item.hanja,
+    reading: item.reading,
+    meaning: item.meaning,
+  })),
+  [
+    {
+      hanja: "丁酉",
+      reading: "정유",
+      meaning: '원문에서 "정유"로 읽는 표현입니다.',
+    },
+  ],
+);
+
+console.log("Parenthetical hanja check passed.");

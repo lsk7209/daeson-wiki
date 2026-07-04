@@ -268,11 +268,11 @@ function buildAnnotation(hanja: string, reading: string): HanjaAnnotation {
     })
     .filter((item): item is string => Boolean(item));
   const meaning =
-    charMeanings.length > 0
-      ? charMeanings.join(", ")
-      : reading
-        ? `원문에서 "${reading}"로 읽는 표현입니다.`
-        : "개별 뜻 검수가 필요한 한자 표현입니다.";
+    reading
+      ? `원문에서 "${reading}"로 읽는 표현입니다.`
+      : charMeanings.length > 0
+        ? "글자별 풀이보다 표현 단위 검수가 필요한 한자입니다."
+        : "표현 단위 검수가 필요한 한자입니다.";
 
   return {
     id: hanja,
