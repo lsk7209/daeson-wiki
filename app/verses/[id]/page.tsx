@@ -1,12 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import NotePad from "@/app/verses/[id]/note-pad";
-import {
-  getHanjaAnnotations,
-  getOriginalHanjaText,
-  hasHanja,
-  shouldUseLongHanjaMode,
-} from "@/lib/hanja";
 import { getSourceLinksForVerse } from "@/lib/source-links";
 import type {
   VerseSourceLink,
@@ -64,15 +58,6 @@ export default async function VersePage({ params }: VersePageProps) {
   const supplementalSources = relatedSources.filter(
     (sourceLink) => !officialCommentarySourceIds.has(sourceLink.id),
   );
-  const hanjaAnnotations = hasHanja(verse.text)
-    ? getHanjaAnnotations(verse.text)
-    : [];
-  const hanjaOriginalText = getOriginalHanjaText(verse.text);
-  const hanjaReadingText = hanjaAnnotations
-    .map((annotation) => annotation.reading)
-    .join(" ");
-  const isLongHanjaPassage = shouldUseLongHanjaMode(hanjaAnnotations);
-  const hanjaExplanations = isLongHanjaPassage ? [] : hanjaAnnotations;
 
   return (
     <div className="page-shell verse-layout">
@@ -142,44 +127,10 @@ export default async function VersePage({ params }: VersePageProps) {
           ) : (
             <p className="source-commentary-empty">
               수집된 대순회보, 교무부, 대순종교문화연구소 자료 중 이 구절의
-              직접 해설이나 용어 해설은 아직 연결되지 않았습니다. 아래 한자
-              풀이는 공식 근거 해설이 아니라 원문 보조 정보입니다.
+              직접 해설이나 용어 해설은 아직 연결되지 않았습니다.
             </p>
           )}
         </section>
-
-        {hanjaAnnotations.length > 0 ? (
-          <section className="hanja-section">
-            <h3>한자읽기</h3>
-            <div className="hanja-reading-pair">
-              <p className="hanja-original-text">{hanjaOriginalText}</p>
-              {isLongHanjaPassage ? (
-                <p className="hanja-long-note">
-                  긴 한문은 구절별 자동 풀이보다 문장 전체의 흐름이 중요하므로
-                  원문 단위로 보존했습니다. 포유문, 각도문 같은 글은 문단 단위
-                  해설로 별도 정리하는 편이 적합합니다.
-                </p>
-              ) : (
-                <p className="hanja-reading-text">{hanjaReadingText}</p>
-              )}
-            </div>
-
-            {hanjaExplanations.length > 0 ? (
-              <dl className="hanja-list">
-                <dt className="hanja-list-title">기초 한자해설</dt>
-                {hanjaExplanations.map((annotation) => (
-                  <div key={annotation.id}>
-                    <dt>
-                      <span>{annotation.hanja}</span>
-                      <strong>{annotation.reading}</strong>
-                    </dt>
-                    <dd>{getDisplayHanjaMeaning(annotation)}</dd>
-                  </div>
-                ))}
-              </dl>
-            ) : null}
-          </section>
-        ) : null}
 
       </section>
 
@@ -250,19 +201,4 @@ function isOfficialCommentarySource(sourceLink: VerseSourceLinkWithDocument) {
     sourceLink.relationType === "direct_interpretation" ||
     sourceLink.relationType === "term_gloss"
   );
-}
-
-function getDisplayHanjaMeaning(annotation: {
-  meaning: string;
-  reading: string;
-}) {
-  if (annotation.meaning.startsWith("원문에서 ")) {
-    return `독음은 "${annotation.reading}"입니다. 뜻풀이는 문맥 단위 검수가 필요합니다.`;
-  }
-
-  if (annotation.meaning.includes("표현 단위 검수")) {
-    return "뜻풀이는 문맥 단위 검수가 필요합니다.";
-  }
-
-  return annotation.meaning;
 }
