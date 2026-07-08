@@ -12,6 +12,7 @@ import type {
   VerseSourceLink,
   VerseSourceLinkWithDocument,
 } from "@/lib/source-types";
+import { getVerseCommentary } from "@/lib/verse-commentaries";
 import {
   getAdjacentVerses,
   getAllVerses,
@@ -52,6 +53,7 @@ export default async function VersePage({ params }: VersePageProps) {
   }
 
   const adjacent = getAdjacentVerses(verse.id);
+  const verseCommentary = getVerseCommentary(verse.id);
   const relatedSources = getSourceLinksForVerse(verse.id);
   const officialCommentarySources = relatedSources.filter(
     isOfficialCommentarySource,
@@ -96,6 +98,26 @@ export default async function VersePage({ params }: VersePageProps) {
           <p className="eyebrow">해설</p>
           <h2>해설 영역</h2>
         </header>
+
+        {verseCommentary ? (
+          <section className="source-commentary-section">
+            <div className="source-commentary-heading">
+              <h3>{verseCommentary.title}</h3>
+              <span>직접 정리</span>
+            </div>
+            <div className="source-commentary-list">
+              <article className="source-commentary-row">
+                <p>{verseCommentary.summary}</p>
+              </article>
+              {verseCommentary.items.map((item) => (
+                <article className="source-commentary-row" key={item.term}>
+                  <strong>{item.term}</strong>
+                  <p>{item.description}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         <section className="source-commentary-section">
           <div className="source-commentary-heading">
