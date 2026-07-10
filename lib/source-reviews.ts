@@ -23,6 +23,20 @@ export function isSourceReviewStatus(value: unknown): value is SourceReviewStatu
   return value === "auto" || value === "reviewed" || value === "rejected";
 }
 
+export function applySourceLinkReviews<
+  T extends Pick<VerseSourceLink, "id" | "reviewStatus">,
+>(links: T[], reviewMap: Map<string, SourceLinkReview>) {
+  return links.map((sourceLink) => {
+    const savedReview = reviewMap.get(sourceLink.id);
+
+    return {
+      ...sourceLink,
+      reviewStatus: savedReview?.reviewStatus ?? sourceLink.reviewStatus,
+      reviewNote: savedReview?.note ?? "",
+    };
+  });
+}
+
 export async function getAllSourceLinkReviewMap() {
   const reviews = new Map<string, SourceLinkReview>();
 

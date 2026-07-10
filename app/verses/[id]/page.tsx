@@ -2,6 +2,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import NotePad from "@/app/verses/[id]/note-pad";
 import { getSourceLinksForVerse } from "@/lib/source-links";
+import {
+  applySourceLinkReviews,
+  getAllSourceLinkReviewMap,
+} from "@/lib/source-reviews";
 import type {
   VerseSourceLink,
   VerseSourceLinkWithDocument,
@@ -48,7 +52,11 @@ export default async function VersePage({ params }: VersePageProps) {
 
   const adjacent = getAdjacentVerses(verse.id);
   const verseCommentary = getVerseCommentary(verse.id);
-  const relatedSources = getSourceLinksForVerse(verse.id);
+  const reviewMap = await getAllSourceLinkReviewMap();
+  const relatedSources = applySourceLinkReviews(
+    getSourceLinksForVerse(verse.id),
+    reviewMap,
+  );
   const officialCommentarySources = relatedSources.filter(
     isOfficialCommentarySource,
   );

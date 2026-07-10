@@ -1,7 +1,10 @@
 import Link from "next/link";
 import SourceReviewControls from "@/app/sources/source-review-controls";
 import { getAllSourceLinks } from "@/lib/source-links";
-import { getAllSourceLinkReviewMap } from "@/lib/source-reviews";
+import {
+  applySourceLinkReviews,
+  getAllSourceLinkReviewMap,
+} from "@/lib/source-reviews";
 import type { VerseSourceLink } from "@/lib/source-types";
 import { getVerseById } from "@/lib/verses";
 
@@ -17,15 +20,7 @@ export const dynamic = "force-dynamic";
 
 export default async function SourcesPage() {
   const reviewMap = await getAllSourceLinkReviewMap();
-  const links = getAllSourceLinks().map((sourceLink) => {
-    const savedReview = reviewMap.get(sourceLink.id);
-
-    return {
-      ...sourceLink,
-      reviewStatus: savedReview?.reviewStatus ?? sourceLink.reviewStatus,
-      reviewNote: savedReview?.note ?? "",
-    };
-  });
+  const links = applySourceLinkReviews(getAllSourceLinks(), reviewMap);
   const summary = getReviewSummary(links);
 
   return (
