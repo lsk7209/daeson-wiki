@@ -1,15 +1,15 @@
-# Current Handoff — Git Publication Preflight
+# Current Handoff — Git Publication Complete
 
-- Timestamp: 2026-08-31T14:21:16+09:00
+- Timestamp: 2026-08-31T14:25:00+09:00
 - User goal: 현재 검증된 대순회보 KB와 개인용 PWA/푸시 구현을 Git 원격 저장소에 배포
-- Exact current state: `master`와 `origin/master`는 fetch 후 0 ahead / 0 behind이며 동일한 `c33496d25a87204eb9ccfaac933e7d5aa2ea05cb`를 가리킨다. 게시 후보는 아래 두 이전 handoff의 KB 및 PWA/푸시 변경 전체다. 원격은 `lsk7209/daeson-wiki` PRIVATE 저장소이고 기본 브랜치는 `master`다. 이 checkpoint에서는 아직 commit/push하지 않았다.
-- Completed work: Git Goal Harness와 위험 공지를 기록하고, 원격/추적 브랜치/가시성을 확인했다. `.env*`, 빌드·캐시·KB proposal/cache, Goal Harness 및 OMX 런타임 상태를 배포 대상에서 제외했다. 변경 후보 46개 파일을 고신뢰 비밀 패턴으로 검사했고 실제 자격증명은 발견되지 않았다. `local-test-token`은 메모리 DB 통합 테스트용 고정 fixture임을 확인했다.
-- Changed files or live systems: 배포 제외를 위해 `.gitignore`에 `.omx/`를 추가했다. `git fetch --prune origin`으로 로컬 remote-tracking ref만 갱신했다. 원격 브랜치나 배포 시스템은 아직 변경하지 않았다.
-- Fresh validation evidence: `npm run verify:all` PASS(전경 839, 문서 19, 푸시 11/11, KB 16/16, TypeScript); `npm run build` PASS(Next 16.3.3, 851 pages); `npm audit --omit=dev` 0 vulnerabilities; `git diff --check` PASS; 원격 fetch 후 ahead/behind `0 0`; 고신뢰 secret scan 0건.
-- Side effects / rollback: 예정된 Git 작업은 PRIVATE `origin/master`에 일반 커밋을 추가하는 것뿐이다. 문제 발생 시 history rewrite나 force push 대신 후속 `git revert`로 복구한다.
-- Blockers or risks: 독립 Git 감사 결과와 staged diff를 확인하기 전에는 commit/push하지 않는다. 공개 배포, Vercel, 환경변수, Turso, 실제 푸시는 이번 범위가 아니다.
-- Deliberately not run or sent: Git stage/commit/push, Vercel 배포, 실 DB/비밀값 변경, GitHub Release/tag 생성, force push.
-- Single next step: 독립 감사 결과를 통합한 뒤 명시적으로 후보 파일을 stage하고 staged 비밀정보·diff를 재검증한다.
+- Exact current state: KB·개인용 PWA·푸시 구현 46개 파일을 기능 스냅샷 `4b64765452498d9d56b65276fdd937b43a9d4bd5`로 커밋해 PRIVATE `lsk7209/daeson-wiki`의 `master`에 비강제 push했다. push 직후 로컬 HEAD와 원격 ref의 전체 OID가 일치했다. 이 문서는 그 게시 증거를 남기는 문서 전용 후속 기록이다.
+- Completed work: Git Goal Harness와 위험 공지를 기록하고 원격/추적 브랜치/가시성을 확인했다. `.env*`, 빌드·캐시·KB proposal/cache, Goal Harness와 OMX 런타임을 제외했다. staged 46개 파일에 고신뢰 비밀 패턴과 생성물 경로가 0건임을 확인하고 독립 Luna Git 감사를 통합했다. 전체 검증 후 `feat: add daesoon knowledge base and mobile push alerts`를 커밋·push하고 원격 OID를 재검증했다.
+- Changed files or live systems: `.gitignore`에 `.omx/`를 추가했고 PRIVATE `origin/master`를 `c33496d`에서 `4b64765`로 전진시켰다. Vercel, Turso, 환경변수, 도메인, 실제 휴대폰 푸시는 변경하지 않았다.
+- Fresh validation evidence: `npm run verify:all` PASS(전경 839, 문서 19, 푸시 11/11, KB 16/16, TypeScript); `npm run build` PASS(Next 16.3.3, 851 pages); 전체 `npm audit` 0 vulnerabilities; `git diff --check` PASS; staged secret/generated gate 0건; push 후 local/remote OID `4b64765452498d9d56b65276fdd937b43a9d4bd5` MATCH; GitHub Dependabot open alerts API 0건; GitHub Actions run 0건.
+- Side effects / rollback: PRIVATE `origin/master`에 일반 커밋을 추가했다. 문제 발생 시 history rewrite나 force push 대신 `git revert 4b64765452498d9d56b65276fdd937b43a9d4bd5`를 검토하고 새 커밋으로 push한다.
+- Blockers or risks: Git 게시 차단 요소는 없다. 앱의 실제 사용에는 별도로 HTTPS 배포, Basic/Turso/VAPID/Cron 비밀값, migration 0003, 휴대폰 설치와 권한 허용이 필요하다.
+- Deliberately not run or sent: Vercel 배포, 실 DB 조회/마이그레이션, 비밀값 생성·등록, GitHub Release/tag 생성, force push, 실제 외부 푸시 발송.
+- Single next step: 사용자가 실제 앱 배포를 명시적으로 요청하면 Turso 중복 preflight부터 수행한다.
 
 # Previous Handoff — Mobile PWA And Push
 
