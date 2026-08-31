@@ -1,8 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
+import {
+  parseBasicAuthorization,
+  timingSafeEqual,
+} from "@/lib/request-auth";
 
 const REALM = "Daeson Wiki";
 
 export function proxy(request: NextRequest) {
+  if (
+    /^\/api\/push\/dispatch\/(morning|afternoon|evening)$/.test(
+      request.nextUrl.pathname,
+    )
+  ) {
+    return NextResponse.next();
+  }
+
   if (process.env.BASIC_AUTH_DISABLED === "true") {
     return NextResponse.next();
   }
@@ -11,10 +23,22 @@ export function proxy(request: NextRequest) {
   const expectedPassword = process.env.BASIC_AUTH_PASSWORD;
 
   if (!expectedUser || !expectedPassword) {
+    if (process.env.NODE_ENV === "production") {
+      return new NextResponse("Private access is not configured.", {
+        status: 503,
+        headers: {
+          "Cache-Control": "no-store",
+          "Content-Type": "text/plain; charset=utf-8",
+        },
+      });
+    }
+
     return NextResponse.next();
   }
 
-  const credentials = parseBasicAuth(request.headers.get("authorization"));
+  const credentials = parseBasicAuthorization(
+    request.headers.get("authorization"),
+  );
 
   if (
     credentials &&
@@ -32,51 +56,6 @@ export function proxy(request: NextRequest) {
       "WWW-Authenticate": `Basic realm="${REALM}", charset="UTF-8"`,
     },
   });
-}
-
-function parseBasicAuth(header: string | null) {
-  if (!header?.startsWith("Basic ")) {
-    return null;
-  }
-
-  const encoded = header.slice("Basic ".length).trim();
-
-  if (!encoded) {
-    return null;
-  }
-
-  let decoded: string;
-
-  try {
-    decoded = Buffer.from(encoded, "base64").toString("utf8");
-  } catch {
-    return null;
-  }
-
-  const separatorIndex = decoded.indexOf(":");
-
-  if (separatorIndex < 0) {
-    return null;
-  }
-
-  return {
-    user: decoded.slice(0, separatorIndex),
-    password: decoded.slice(separatorIndex + 1),
-  };
-}
-
-function timingSafeEqual(actual: string, expected: string) {
-  const encoder = new TextEncoder();
-  const actualBytes = encoder.encode(actual);
-  const expectedBytes = encoder.encode(expected);
-  const maxLength = Math.max(actualBytes.length, expectedBytes.length);
-  let diff = actualBytes.length ^ expectedBytes.length;
-
-  for (let index = 0; index < maxLength; index += 1) {
-    diff |= (actualBytes[index] ?? 0) ^ (expectedBytes[index] ?? 0);
-  }
-
-  return diff === 0;
 }
 
 export const config = {

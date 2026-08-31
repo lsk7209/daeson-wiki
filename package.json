@@ -12,7 +12,10 @@
     "verify:hanja": "node --experimental-strip-types scripts/verify-hanja.mjs",
     "verify:sources": "node scripts/verify-source-links.mjs",
     "verify:docs": "node scripts/verify-docs-catalog.mjs",
-    "verify:all": "npm run verify:verses && npm run verify:hanja && npm run verify:sources && npm run verify:docs && npm run type-check",
+    "kb:inspect": "python scripts/daesoon_kb.py inspect",
+    "kb:test": "python -m unittest tests.test_daesoon_kb -v",
+    "push:test": "node --experimental-strip-types --test tests/push-schedule.test.mjs tests/request-auth.test.mjs tests/push-storage.integration.test.mjs",
+    "verify:all": "npm run verify:verses && npm run verify:hanja && npm run verify:sources && npm run verify:docs && npm run push:test && npm run kb:test && npm run type-check",
     "db:migrate": "node scripts/migrate-turso.mjs",
     "push:keys": "node scripts/generate-vapid-keys.mjs",
     "collect:sources": "node scripts/collect-source-links.mjs",
@@ -30,14 +33,16 @@
   "type": "module",
   "dependencies": {
     "@libsql/client": "^0.17.4",
-    "next": "^16.2.10",
+    "next": "16.3.3",
     "react": "^19.2.7",
-    "react-dom": "^19.2.7"
+    "react-dom": "^19.2.7",
+    "web-push": "^3.6.7"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "@types/web-push": "^3.6.4",
     "typescript": "^5.9.0"
   }
 }

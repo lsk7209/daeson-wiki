@@ -1,5 +1,11 @@
-const CACHE_NAME = "daeson-wiki-v2";
-const APP_SHELL = ["/", "/offline", "/manifest.webmanifest", "/icon.svg"];
+const CACHE_NAME = "daeson-wiki-v3";
+const APP_SHELL = [
+  "/",
+  "/offline",
+  "/settings/notifications",
+  "/manifest.webmanifest",
+  "/icon.svg",
+];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -39,8 +45,10 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(
       fetch(request)
         .then((response) => {
-          const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+          if (response.ok) {
+            const copy = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+          }
           return response;
         })
         .catch(async () => {
@@ -72,7 +80,23 @@ self.addEventListener("push", (event) => {
     body: "오늘의 구절을 확인하세요.",
     url: "/today",
   };
-  const payload = event.data ? event.data.json() : fallback;
+  let payload = fallback;
+
+  if (event.data) {
+    try {
+      const candidate = event.data.json();
+      if (candidate && typeof candidate === "object") {
+        payload = {
+          title: typeof candidate.title === "string" ? candidate.title : fallback.title,
+          body: typeof candidate.body === "string" ? candidate.body : fallback.body,
+          url: typeof candidate.url === "string" ? candidate.url : fallback.url,
+          tag: typeof candidate.tag === "string" ? candidate.tag : "daily-jeongyeong",
+        };
+      }
+    } catch {
+      payload = fallback;
+    }
+  }
 
   event.waitUntil(
     self.registration.showNotification(payload.title ?? fallback.title, {

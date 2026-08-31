@@ -25,3 +25,8 @@ export function getTursoClient() {
 
   return cachedClient;
 }
+
+export function closeTursoClient() {
+  cachedClient?.close();
+  cachedClient = null;
+}

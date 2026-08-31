@@ -54,6 +54,7 @@ export default function RootLayout({
             <Link href="/">전체 구절</Link>
             <Link href="/sources">연결 검수</Link>
             <Link href="/documents">문서 자료</Link>
+            <Link href="/settings/notifications">알림 설정</Link>
             <PwaInstall />
           </nav>
         </header>

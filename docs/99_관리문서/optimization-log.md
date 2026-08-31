@@ -27,9 +27,22 @@
 - 서비스워커에 `push`, `notificationclick` 핸들러 추가
 - manifest shortcut을 `/today`로 연결
 
+### 2026-08-31 예약 푸시 완성
+
+- `/settings/notifications`에서 08:00·13:00·20:00 KST 중 1~3개를 선택
+- `web-push` VAPID 서버 발송기와 `CRON_SECRET` Bearer 인증 예약 API 추가
+- `vercel.json`에 Hobby 무료 범위의 하루 3개 UTC Cron 등록
+- 새 휴대폰 구독이 이전 활성 구독을 원자적으로 끄는 단일 기기 정책 적용
+- `(target_date, channel)` 유니크 인덱스로 구절 데이터가 바뀌어도 같은 날짜·슬롯 중복 발송 차단
+- 푸시 서비스의 404/410 응답 시 만료 구독 자동 비활성화
+- 운영 Basic Auth 미설정 시 503으로 닫히는 fail-closed 정책 적용
+- iPhone 홈 화면 추가 안내, Android 설치 안내, malformed push fallback 추가
+
 ## 검증 기준
 
 - `npm run type-check`
+- `npm run push:test`
+- `npm run verify:all`
 - `npm run build`
 - `/`, `/books/gyobeop`, `/verses/haengrok-1-1` HTTP 200
 - `/today` HTTP 307 redirect
@@ -39,9 +52,10 @@
 
 ## 다음 단계
 
-- Turso DB 도입 시 메모/첨언을 기기 저장에서 서버 저장으로 이전
-- 로그인 또는 Basic Auth 추가 전까지 검색 차단은 보안 장벽이 아님
-- 푸시 알림은 사용자 로그인, 구독 정보 저장, 발송 스케줄러가 필요
+- 실제 Turso에서 날짜+채널 중복 preflight 후 migration 0003 적용
+- Basic Auth, Turso, VAPID, Cron 환경값을 설정한 HTTPS 배포 승인
+- 사용자 휴대폰 설치 후 테스트 푸시 1건과 세 예약 슬롯 수신 확인
+- 향후 조건형 트리거는 기존 발송기와 별도 idempotency channel을 재사용해 추가
 
 ## 원문 불변
 

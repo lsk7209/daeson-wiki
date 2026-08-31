@@ -58,6 +58,10 @@ export function getAdjacentVerses(id: string) {
 }
 
 export function getDailyVerse(date = new Date()) {
+  return getDailyVerseWithOffset(date, 0);
+}
+
+export function getDailyVerseWithOffset(date: Date, offset: number) {
   if (verses.length === 0) {
     return undefined;
   }
@@ -65,7 +69,7 @@ export function getDailyVerse(date = new Date()) {
   const { year, month, day } = getKoreaDateParts(date);
   const utcDay = Date.UTC(year, month - 1, day);
   const dayOffset = Math.floor((utcDay - dailySequenceStartDay) / 86_400_000);
-  const index = modulo(dayOffset, verses.length);
+  const index = modulo(dayOffset + offset, verses.length);
 
   return verses[index];
 }

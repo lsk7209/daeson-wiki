@@ -1,0 +1,195 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.daeson-wiki.invalid/schemas/daesoon-kb-app-projection.schema.json",
+  "title": "Daesoon KB application citation projection",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "generatedAt", "source", "citations"],
+  "properties": {
+    "schemaVersion": {
+      "const": "daesoon-kb-app-projection/1.0.0"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "kbRelease",
+        "artifactDigest",
+        "schemaVersion",
+        "issueRange",
+        "articleCount",
+        "chunkCount",
+        "collectedAt"
+      ],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "kbRelease": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "artifactDigest": {
+          "type": ["string", "null"],
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "schemaVersion": { "type": ["string", "null"] },
+        "issueRange": {
+          "type": "array",
+          "prefixItems": [
+            { "type": "integer", "minimum": 1 },
+            { "type": "integer", "minimum": 1 }
+          ],
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "articleCount": { "type": "integer", "minimum": 0 },
+        "chunkCount": { "type": "integer", "minimum": 0 },
+        "collectedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "citations": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/citation" }
+    }
+  },
+  "$defs": {
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "id"],
+      "properties": {
+        "type": {
+          "enum": ["verse", "concept", "person", "place", "event", "document"]
+        },
+        "id": { "type": "string", "minLength": 1 }
+      }
+    },
+    "citation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kbRelease",
+        "articleId",
+        "chunkId",
+        "issueNo",
+        "publicationDate",
+        "categoryOriginal",
+        "title",
+        "sourceUrl",
+        "contentSha256",
+        "chunkContentSha256",
+        "paragraphIds",
+        "excerpt",
+        "citationMode",
+        "relationType",
+        "targets",
+        "confidence",
+        "reviewStatus",
+        "reviewer",
+        "reviewedAt",
+        "rightsStatus",
+        "visibility"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^cite-ds-" },
+        "kbRelease": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "articleId": {
+          "type": "string",
+          "pattern": "^ds-[0-9]{3}-b[0-9]{6}$"
+        },
+        "chunkId": {
+          "type": "string",
+          "pattern": "^ds-[0-9]{3}-b[0-9]{6}-c[0-9]{3}$"
+        },
+        "issueNo": { "type": "integer", "minimum": 1 },
+        "publicationDate": {
+          "type": ["string", "null"],
+          "pattern": "^[0-9]{4}-[0-9]{2}$"
+        },
+        "categoryOriginal": { "type": ["string", "null"] },
+        "title": { "type": "string", "minLength": 1 },
+        "sourceUrl": { "type": "string", "format": "uri" },
+        "contentSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "chunkContentSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "paragraphIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^p[0-9]{4}$" }
+        },
+        "excerpt": { "type": "string", "minLength": 1, "maxLength": 2000 },
+        "citationMode": { "enum": ["exact_excerpt", "summary", "inference"] },
+        "relationType": {
+          "enum": [
+            "direct_interpretation",
+            "term_gloss",
+            "source_reference",
+            "related_reference"
+          ]
+        },
+        "targets": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/target" }
+        },
+        "confidence": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "reviewStatus": {
+          "enum": ["not_reviewed", "in_review", "approved", "rejected"]
+        },
+        "reviewer": { "type": ["string", "null"] },
+        "reviewedAt": { "type": ["string", "null"], "format": "date-time" },
+        "rightsStatus": {
+          "enum": [
+            "internal_research_only",
+            "metadata_only",
+            "approved_excerpt",
+            "public_link_only",
+            "restricted"
+          ]
+        },
+        "visibility": { "enum": ["private", "internal", "public"] }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "reviewStatus": { "const": "approved" } },
+            "required": ["reviewStatus"]
+          },
+          "then": {
+            "properties": {
+              "reviewer": { "type": "string", "minLength": 1 },
+              "reviewedAt": { "type": "string", "format": "date-time" }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "visibility": { "const": "public" } },
+            "required": ["visibility"]
+          },
+          "then": {
+            "properties": {
+              "reviewStatus": { "const": "approved" },
+              "rightsStatus": { "const": "approved_excerpt" },
+              "citationMode": { "const": "exact_excerpt" }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

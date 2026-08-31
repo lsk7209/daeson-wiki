@@ -2,6 +2,8 @@
   "name": "전경 개인 기록",
   "short_name": "전경 기록",
   "description": "개인용 전경 구절 기록장",
+  "id": "/",
+  "lang": "ko-KR",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

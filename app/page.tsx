@@ -6,6 +6,8 @@ import {
   getVersePreview,
 } from "@/lib/verses";
 
+export const dynamic = "force-dynamic";
+
 export default function HomePage() {
   const today = getDailyVerse();
   const summaries = getBookSummaries();
@@ -39,11 +41,7 @@ export default function HomePage() {
             <Link className="secondary-link" href="/today">
               오늘 링크
             </Link>
-            <DailyReminder
-              preview={getVersePreview(today.text, 140)}
-              title={today.title}
-              verseId={today.id}
-            />
+            <DailyReminder />
           </div>
         ) : null}
       </section>

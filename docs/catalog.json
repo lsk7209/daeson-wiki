@@ -497,7 +497,7 @@
     "format": "MD",
     "size_mb": 0,
     "page_count": null,
-    "word_count": 343,
+    "word_count": 455,
     "text_status": "extractable",
     "rights_status": "내부용",
     "keywords": [
@@ -505,9 +505,9 @@
       "검증",
       "최적화"
     ],
-    "sha256": "b0b5c11611d966524714cd8672041fbaf631d173e988d09126c83d5291e02bb8",
+    "sha256": "dfd988c961443f131fbbe1d19d8be13592ede658084aef2202cb7ddba4eca411",
     "catalog_status": "reviewed",
-    "last_reviewed_at": "2026-07-03",
+    "last_reviewed_at": "2026-08-31",
     "notes": "프로젝트 내부 운영 문서"
   }
 ]

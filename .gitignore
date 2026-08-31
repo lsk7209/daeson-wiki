@@ -1,6 +1,7 @@
 .next/
 .next_stale*/
 .goal-harness/
+.omx/
 node_modules/
 node_modules_broken/
 node_modules_partial*/
@@ -15,3 +16,10 @@ dist/
 *.tsbuildinfo
 
 .vercel
+
+# Daesoon KB consumer outputs. Canonical corpus stays in its own package.
+data/kb/proposals/*.json
+data/kb/cache/
+
+__pycache__/
+*.pyc
