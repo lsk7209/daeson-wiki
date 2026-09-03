@@ -1,15 +1,15 @@
-# Current Handoff — Anonymous Public Read Access
+# Current Handoff — Anonymous Public Read Access Published
 
 - Timestamp: 2026-09-04T08:05:00+09:00
 - User goal: 웹사이트 방문자가 계정 정보를 입력하지 않고 공개적으로 열람할 수 있게 한다.
-- Exact current state: 로컬 구현과 production-mode HTTP 검증이 완료됐다. `proxy.ts`는 GET/HEAD/OPTIONS 조회를 무인증으로 허용하고 POST/PUT/DELETE 쓰기는 기존 Basic Auth로 보호한다. 검색엔진 `noindex`/robots 차단과 예약 푸시 API의 별도 Bearer 인증도 유지된다. 아직 Git push나 Vercel 배포는 하지 않았다.
-- Completed work: 전역 인증 정책을 공개 조회/인증 쓰기로 분리하고 `BASIC_AUTH_DISABLED` 우회 설정을 제거했다. README와 Goal Harness에 공개 열람 범위, 쓰기 보호, 검증 증거를 갱신했다. 독립 Git 검토에서 발견한 쓰기 API 공개 문제를 push 전에 보정했다.
+- Exact current state: 공개 조회/인증 쓰기 정책을 커밋 `c961d4c`로 PRIVATE `origin/master`에 일반 push했다. `proxy.ts`는 GET/HEAD/OPTIONS 조회를 무인증으로 허용하고 POST/PUT/DELETE 쓰기는 기존 Basic Auth로 보호한다. 검색엔진 `noindex`/robots 차단과 예약 푸시 API의 별도 Bearer 인증도 유지된다. Vercel 직접 배포나 설정 변경은 하지 않았다.
+- Completed work: 전역 인증 정책을 공개 조회/인증 쓰기로 분리하고 `BASIC_AUTH_DISABLED` 우회 설정을 제거했다. README와 Goal Harness에 공개 열람 범위, 쓰기 보호, 검증 증거를 갱신했다. 독립 Git 검토에서 발견한 쓰기 API 공개 문제를 push 전에 보정했고 재검토에서 blocker 없음 판정을 받은 뒤 커밋·push했다.
 - Changed files or live systems: `.env.example`, `README.md`, `proxy.ts`, `.goal-harness/*`, 이 핸드오프. 의존성 폴더의 비어 있던 `@libsql/client`은 lockfile 기준 `npm install`로 복구했으며 package 파일 변화는 없다. 외부 시스템은 변경하지 않았다.
 - Fresh validation evidence: `npm run verify:all` PASS(839 verses, sources/docs, push 11/11, KB 16/16, TypeScript); `npm run build` PASS(851 pages); production HTTP smoke는 무인증 `/` 200, 무인증 `/verses/haengrok-1-1` 200, 메모 PUT 무인증/오인증 각각 401, Cron 무인증 401.
 - Side effects / rollback: 배포 시 화면과 조회 API는 공개되지만 데이터 변경 요청은 Basic Auth가 필요하다. 롤백은 `proxy.ts`, `.env.example`, README를 이전 Git 상태로 되돌린다. 경로 충돌 진단 중 기존 `.next` 산출물은 `%TEMP%\daeson-wiki-next-stale-e-drive-20260904`로 이동했다.
 - Blockers or risks: 조회 API에 저장된 개인 메모와 검수 상태가 포함되면 읽기 데이터는 공개될 수 있다. 검색엔진 노출은 여전히 차단되어 주소 직접 접속 방식이다. 쓰기 자격증명이 배포 환경에 없으면 운영 쓰기 요청은 503으로 닫힌다.
-- Deliberately not run or sent: Git commit/push, Vercel 배포·연결·환경변수 변경, Turso 조회/마이그레이션, 실제 푸시 발송, 검색 노출 활성화.
-- Single next step: 사용자가 게시까지 요청하면 검증된 변경만 Git push하고, Vercel 설정 변경이나 직접 배포는 별도 명시 권한 없이는 수행하지 않는다.
+- Deliberately not run or sent: Vercel 직접 배포·연결·환경변수 변경, Turso 조회/마이그레이션, 실제 푸시 발송, 검색 노출 활성화.
+- Single next step: 연결된 Git 자동 배포가 있다면 완료 후 공개 URL에서 무인증 GET 200과 쓰기 무인증 401을 읽기 전용으로 재확인한다. Vercel 직접 조작은 별도 명시 권한 없이는 수행하지 않는다.
 
 # Previous Handoff — Git Publication Complete
 
