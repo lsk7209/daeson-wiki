@@ -8,14 +8,10 @@ const REALM = "Daeson Wiki";
 
 export function proxy(request: NextRequest) {
   if (
-    /^\/api\/push\/dispatch\/(morning|afternoon|evening)$/.test(
-      request.nextUrl.pathname,
-    )
+    request.method === "GET" ||
+    request.method === "HEAD" ||
+    request.method === "OPTIONS"
   ) {
-    return NextResponse.next();
-  }
-
-  if (process.env.BASIC_AUTH_DISABLED === "true") {
     return NextResponse.next();
   }
 
@@ -24,7 +20,7 @@ export function proxy(request: NextRequest) {
 
   if (!expectedUser || !expectedPassword) {
     if (process.env.NODE_ENV === "production") {
-      return new NextResponse("Private access is not configured.", {
+      return new NextResponse("Write access is not configured.", {
         status: 503,
         headers: {
           "Cache-Control": "no-store",
@@ -48,7 +44,7 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  return new NextResponse("Authentication required.", {
+  return new NextResponse("Authentication required for write access.", {
     status: 401,
     headers: {
       "Cache-Control": "no-store",

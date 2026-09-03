@@ -76,24 +76,18 @@ npm run collect:sources
 
 새 공식/관련 자료 URL은 `data/source-seeds.json`에 추가한 뒤 위 명령을 다시 실행합니다.
 
-## 검색 노출 차단
+## 공개 열람과 검색 노출
 
-`robots.txt`, HTML metadata, `X-Robots-Tag`를 적용했습니다. 이것들은 검색 노출 방지 장치이며 접근 인증을 대신하지 않습니다. 운영 환경은 Basic Auth가 없으면 `503`으로 닫히도록 구성했습니다.
+사이트 화면과 조회 API는 계정이나 Basic Auth 입력 없이 공개 열람할 수 있습니다. 다만 `robots.txt`, HTML metadata, `X-Robots-Tag`를 통한 검색 노출 차단은 유지하므로 주소를 아는 사용자가 직접 접속하는 방식입니다.
 
-배포 환경에는 다음 환경변수를 설정해야 합니다.
+메모·검수 상태·알림 설정처럼 데이터를 변경하는 요청은 기존 Basic Auth로 보호됩니다. 배포 환경에 다음 값을 설정해야 쓰기 기능을 사용할 수 있으며, 값이 없는 운영 환경에서는 쓰기 요청이 `503`으로 안전하게 닫힙니다.
 
 ```bash
 BASIC_AUTH_USER=원하는_아이디
 BASIC_AUTH_PASSWORD=긴_비밀번호
 ```
 
-로컬 개발에서는 값이 없어도 열리지만, 운영 환경에서는 두 값이 없으면 앱이 열리지 않습니다. 인증을 명시적으로 끄고 싶을 때만 `.env.local` 또는 배포 환경에 다음 값을 사용합니다.
-
-```bash
-BASIC_AUTH_DISABLED=true
-```
-
-개인 기록이 들어가는 운영 환경에서는 `BASIC_AUTH_DISABLED=true`를 사용하지 않는 것을 권장합니다.
+예약 푸시 발송 API의 `CRON_SECRET` 인증은 공개 열람 및 쓰기 인증과 별개로 계속 적용됩니다.
 
 ## 휴대폰 앱 설치
 
